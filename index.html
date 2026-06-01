@@ -1392,30 +1392,38 @@ this.acordes = {
             // ============================================================
             // BUILD DO PIANO
             // ============================================================
-            buildPiano() {
-                this.pianoKeys.innerHTML = '';
-                this.notasViolao.forEach(nota => {
-                    const key = document.createElement('div');
-                    key.className = `piano-key ${nota.includes('#') ? 'black' : 'white'}`;
-                    key.textContent = nota;
-                    key.dataset.nota = nota;
-                    key.addEventListener('click', () => this.previewNota(nota));
-                    this.pianoKeys.appendChild(key);
-                });
-                
-                this.acordesGrade.innerHTML = '';
-                this.notasViolao.forEach(nota => {
-                    const linha = document.createElement('div');
-                    linha.className = `grade-linha ${nota.includes('#') ? 'black' : ''}`;
-                    linha.dataset.nota = nota;
-                    this.acordesGrade.appendChild(linha);
-                });
-                
-                this.cursorPlay = document.getElementById('cursorPlay');
-                if (!this.acordesGrade.contains(this.cursorPlay)) { 
-                    this.acordesGrade.appendChild(this.cursorPlay); 
-                }
-            }
+buildPiano() {
+    this.pianoKeys.innerHTML = '';
+    this.notasViolao.forEach(nota => {
+        const key = document.createElement('div');
+        key.className = `piano-key ${nota.includes('#') ? 'black' : 'white'}`;
+        key.textContent = nota;
+        key.dataset.nota = nota;
+        key.addEventListener('click', () => this.previewNota(nota));
+        this.pianoKeys.appendChild(key);
+    });
+    
+    this.acordesGrade.innerHTML = '';
+    this.notasViolao.forEach(nota => {
+        const linha = document.createElement('div');
+        linha.className = `grade-linha ${nota.includes('#') ? 'black' : ''}`;
+        linha.dataset.nota = nota;
+        this.acordesGrade.appendChild(linha);
+    });
+    
+    // ❌ REMOVA ESTE BLOCO:
+    // this.cursorPlay = document.getElementById('cursorPlay');
+    // if (!this.acordesGrade.contains(this.cursorPlay)) { 
+    //     this.acordesGrade.appendChild(this.cursorPlay); 
+    // }
+    
+    // ✅ SUBSTITUA POR:
+    this.cursorPlay = document.createElement('div');
+    this.cursorPlay.className = 'cursor-play';
+    this.cursorPlay.id = 'cursorPlay';
+    this.cursorPlay.style.display = 'none';
+    this.acordesGrade.appendChild(this.cursorPlay);
+}
 
             // ============================================================
             // RENDERIZAÇÃO DA GRADE
