@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎸 Violão Compositor Sertanejo Pro v2.2.0</title>
+    <title>🎸 Violão Compositor Sertanejo Pro v2.3.0</title>
+    
+    <!-- ============================================================ -->
+    <!-- ESTILOS COMPLETOS -->
+    <!-- ============================================================ -->
     <style>
+        /* ==================== VARIÁVEIS DE COR ==================== */
         :root {
             --bg: #0a0a14;
             --panel: #111128;
@@ -17,12 +22,14 @@
             --text: #e0e0e0;
             --text2: #888;
             --grid-line: #1e1e40;
+            --cifraclub: #8e44ad;
         }
 
+        /* ==================== RESET GLOBAL ==================== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             background: var(--bg);
             color: var(--text);
             height: 100vh;
@@ -32,255 +39,694 @@
             user-select: none;
         }
 
+        /* ==================== HEADER ==================== */
         .header {
             background: var(--panel);
             border-bottom: 2px solid var(--border);
-            padding: 8px 16px;
+            padding: 10px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 12px;
+            gap: 16px;
             flex-shrink: 0;
         }
-        .header .logo { font-size: 16px; font-weight: 800; color: var(--accent); }
+        .header .logo {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--accent);
+            letter-spacing: -0.5px;
+        }
         .header .logo span { color: var(--accent2); }
-        .header .status { font-size: 10px; color: var(--text2); display: flex; align-items: center; gap: 6px; }
-        .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--danger); transition: background 0.3s; }
+        .header .version-tag {
+            font-size: 9px;
+            background: var(--accent3);
+            color: #000;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+        .header .status {
+            font-size: 11px;
+            color: var(--text2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--danger);
+            transition: background 0.3s ease;
+        }
         .status-dot.online { background: var(--accent2); }
 
-        .main-layout { display: flex; flex: 1; overflow: hidden; }
+        /* ==================== LAYOUT PRINCIPAL ==================== */
+        .main-layout {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
 
+        /* ==================== PAINEL ESQUERDO ==================== */
         .panel-esquerdo {
-            width: 260px; min-width: 260px;
+            width: 300px;
+            min-width: 300px;
             background: var(--panel);
             border-right: 1px solid var(--border);
-            display: flex; flex-direction: column;
+            display: flex;
+            flex-direction: column;
             overflow-y: auto;
+            overflow-x: hidden;
         }
         .panel-titulo {
-            font-size: 10px; font-weight: 700; color: var(--text2);
-            text-transform: uppercase; letter-spacing: 1px; padding: 8px 12px 4px;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--text2);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 10px 14px 6px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 4px;
         }
 
+        /* ==================== MODO CIFRACLUB ==================== */
+        .cifraclub-section {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+        }
+        .cifraclub-section textarea {
+            width: 100%;
+            height: 110px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            font-size: 12px;
+            font-family: 'Courier New', 'Consolas', monospace;
+            line-height: 1.5;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+        .cifraclub-section textarea:focus {
+            outline: none;
+            border-color: var(--cifraclub);
+            box-shadow: 0 0 12px rgba(142, 68, 173, 0.3);
+        }
+        .cifraclub-section textarea::placeholder {
+            color: #555;
+            font-style: italic;
+        }
+        .cifraclub-section .dica-texto {
+            font-size: 9px;
+            color: var(--text2);
+            margin-top: 6px;
+            line-height: 1.5;
+            padding: 6px 8px;
+            background: rgba(142, 68, 173, 0.1);
+            border-radius: 6px;
+            border-left: 3px solid var(--cifraclub);
+        }
+        .dica-texto strong { color: var(--cifraclub); }
+
+        /* ==================== CATEGORIAS DE ACORDES ==================== */
         .cat-nome {
-            font-size: 11px; font-weight: 700; color: var(--accent);
-            padding: 6px 12px; cursor: pointer;
-            display: flex; align-items: center; gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent);
+            padding: 8px 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
         }
-        .cat-nome::before { content: '▸'; font-size: 8px; transition: transform 0.2s; }
+        .cat-nome:hover { background: rgba(102, 126, 234, 0.1); }
+        .cat-nome::before {
+            content: '▸';
+            font-size: 9px;
+            transition: transform 0.2s ease;
+            display: inline-block;
+            width: 12px;
+        }
         .cat-nome.aberto::before { transform: rotate(90deg); }
+        
         .cat-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr);
-            gap: 3px; padding: 0 8px;
-            max-height: 0; overflow: hidden; transition: max-height 0.3s;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 4px;
+            padding: 0 10px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, padding 0.35s ease;
         }
-        .cat-nome.aberto + .cat-grid { max-height: 400px; padding: 4px 8px; }
+        .cat-nome.aberto + .cat-grid {
+            max-height: 600px;
+            padding: 6px 10px;
+        }
 
         .acorde-chip {
-            background: var(--card); border: 1px solid var(--border);
-            border-radius: 5px; padding: 6px 3px; text-align: center;
-            font-size: 10px; font-weight: 700; cursor: pointer;
-            transition: all 0.15s; white-space: nowrap;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 7px 4px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            white-space: nowrap;
+            letter-spacing: 0.3px;
         }
-        .acorde-chip:hover { background: var(--accent); color: white; transform: scale(1.05); }
-        .acorde-chip.selecionado { background: var(--accent2); color: white; border-color: var(--accent2); }
-        .acorde-chip.custom { border-style: dashed; border-color: var(--accent3); }
-        .acorde-chip.sugestao { border-color: var(--accent3); box-shadow: 0 0 8px rgba(243,156,18,0.4); }
+        .acorde-chip:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        .acorde-chip.selecionado {
+            background: var(--accent2);
+            color: white;
+            border-color: var(--accent2);
+            box-shadow: 0 0 10px rgba(39, 174, 96, 0.4);
+        }
+        .acorde-chip.custom {
+            border-style: dashed;
+            border-color: var(--accent3);
+        }
+        .acorde-chip.sugestao {
+            border-color: var(--accent3);
+            box-shadow: 0 0 10px rgba(243, 156, 18, 0.5);
+            animation: pulse-sugestao 1.5s ease-in-out infinite;
+        }
 
-        .editor-custom { padding: 8px 12px; }
+        @keyframes pulse-sugestao {
+            0%, 100% { box-shadow: 0 0 8px rgba(243, 156, 18, 0.3); }
+            50% { box-shadow: 0 0 16px rgba(243, 156, 18, 0.6); }
+        }
+
+        /* ==================== EDITOR DE ACORDE CUSTOM ==================== */
+        .editor-custom {
+            padding: 10px 14px;
+        }
         .editor-custom input[type="text"] {
-            width: 100%; padding: 6px 8px; border-radius: 5px;
-            border: 1px solid var(--border); background: var(--card); color: var(--text);
-            font-size: 11px; margin-bottom: 6px;
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            transition: border-color 0.3s;
         }
+        .editor-custom input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
         .corda-row {
-            display: flex; align-items: center; gap: 4px; margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 4px;
+            padding: 3px 4px;
+            border-radius: 4px;
+            transition: background 0.2s;
         }
-        .corda-row span { font-size: 8px; color: #c9a87c; width: 45px; text-align: right; }
-        .corda-row input {
-            width: 35px; padding: 3px; text-align: center;
-            border-radius: 4px; border: 1px solid var(--border);
-            background: var(--card); color: var(--text); font-size: 10px;
+        .corda-row:hover { background: rgba(102, 126, 234, 0.08); }
+        .corda-row .corda-label {
+            font-size: 9px;
+            color: #c9a87c;
+            font-weight: 700;
+            width: 50px;
+            text-align: right;
         }
-        .corda-row .preview { font-size: 8px; color: var(--accent); min-width: 25px; }
+        .corda-row input[type="number"] {
+            width: 40px;
+            padding: 4px;
+            text-align: center;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            font-size: 11px;
+            font-weight: 700;
+            transition: border-color 0.2s;
+        }
+        .corda-row input[type="number"]:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .corda-row .nota-preview {
+            font-size: 9px;
+            color: var(--accent);
+            font-weight: 600;
+            min-width: 28px;
+        }
 
-        .piano-container { flex: 1; display: flex; flex-direction: column; background: var(--bg); }
-
+        /* ==================== TOOLBAR ==================== */
         .toolbar {
-            display: flex; align-items: center; gap: 8px;
-            padding: 6px 12px; background: var(--panel);
-            border-bottom: 1px solid var(--border); flex-shrink: 0; flex-wrap: wrap;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 16px;
+            background: var(--panel);
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+            flex-wrap: wrap;
         }
+        
         .btn {
-            padding: 5px 10px; border-radius: 5px; border: 1px solid var(--border);
-            background: var(--card); color: var(--text); cursor: pointer;
-            font-size: 10px; font-weight: 600; transition: all 0.2s; white-space: nowrap;
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            letter-spacing: 0.3px;
         }
-        .btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
-        .btn.ativo { background: var(--accent2); color: white; }
-        .btn.play { background: var(--accent2); color: white; font-size: 13px; padding: 5px 14px; }
-        .btn.stop { background: var(--danger); color: white; }
-        .btn.export { background: var(--accent3); color: #000; }
-        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            transform: translateY(-1px);
+        }
+        .btn:active { transform: translateY(0); }
+        
+        .btn.ativo {
+            background: var(--accent2);
+            color: white;
+            border-color: var(--accent2);
+        }
+        .btn.play {
+            background: var(--accent2);
+            color: white;
+            font-size: 15px;
+            padding: 6px 18px;
+            border-color: var(--accent2);
+        }
+        .btn.play:hover { background: #219a52; }
+        .btn.stop {
+            background: var(--danger);
+            color: white;
+            border-color: var(--danger);
+        }
+        .btn.stop:hover { background: #c0392b; }
+        .btn.export-btn {
+            background: var(--accent3);
+            color: #000;
+            border-color: var(--accent3);
+        }
+        .btn.cifraclub-btn {
+            background: var(--cifraclub);
+            color: white;
+            border-color: var(--cifraclub);
+            font-weight: 700;
+            padding: 8px 16px;
+            font-size: 12px;
+        }
+        .btn.cifraclub-btn:hover {
+            background: #9b59b6;
+            box-shadow: 0 4px 12px rgba(142, 68, 173, 0.4);
+        }
+        .btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
 
         .bpm-box {
-            display: flex; align-items: center; gap: 4px;
-            font-size: 10px; color: var(--text2); font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--text2);
+            font-weight: 700;
         }
         .bpm-box input {
-            width: 45px; padding: 4px; text-align: center;
-            border-radius: 4px; border: 1px solid var(--border);
-            background: var(--bg); color: var(--text); font-weight: 700; font-size: 11px;
+            width: 50px;
+            padding: 5px;
+            text-align: center;
+            border-radius: 5px;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            font-weight: 700;
+            font-size: 12px;
         }
 
-        .piano-grid {
-            flex: 1; overflow-y: auto; overflow-x: auto; position: relative;
+        .separator {
+            width: 1px;
+            height: 20px;
+            background: var(--border);
+            margin: 0 4px;
         }
-        .piano-inner { display: flex; min-height: 100%; }
+
+        /* ==================== PIANO ROLL ==================== */
+        .piano-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg);
+        }
+        .piano-grid {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: auto;
+            position: relative;
+        }
+        .piano-inner {
+            display: flex;
+            min-height: 100%;
+        }
 
         .piano-keys {
-            width: 55px; flex-shrink: 0; position: sticky; left: 0; z-index: 2;
+            width: 60px;
+            flex-shrink: 0;
+            position: sticky;
+            left: 0;
+            z-index: 2;
             background: var(--panel);
         }
         .piano-key {
-            height: 26px; display: flex; align-items: center; justify-content: flex-end;
-            padding-right: 5px; font-size: 8px; font-weight: 700;
-            border-bottom: 1px solid var(--border); cursor: pointer;
-            transition: background 0.1s;
+            height: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 6px;
+            font-size: 9px;
+            font-weight: 700;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background 0.1s ease;
         }
-        .piano-key.white { background: #e8e8d8; color: #333; }
-        .piano-key.black { background: #333; color: #ccc; height: 17px; font-size: 7px; }
-        .piano-key.playing { background: var(--accent) !important; color: white !important; }
+        .piano-key.white {
+            background: #e8e8d8;
+            color: #333;
+        }
+        .piano-key.black {
+            background: #333;
+            color: #ccc;
+            height: 17px;
+            font-size: 7px;
+        }
+        .piano-key.playing {
+            background: var(--accent) !important;
+            color: white !important;
+            box-shadow: inset 0 0 10px rgba(102, 126, 234, 0.6);
+        }
 
-        .acordes-grade { flex: 1; position: relative; min-width: 800px; }
-        .grade-linha {
-            height: 26px; border-bottom: 1px solid var(--grid-line); position: relative;
+        .acordes-grade {
+            flex: 1;
+            position: relative;
+            min-width: 900px;
         }
-        .grade-linha.black { height: 17px; background: rgba(0,0,0,0.15); }
+        .grade-linha {
+            height: 26px;
+            border-bottom: 1px solid var(--grid-line);
+            position: relative;
+        }
+        .grade-linha.black {
+            height: 17px;
+            background: rgba(0, 0, 0, 0.15);
+        }
 
         .bloco-acorde {
-            position: absolute; height: 24px; top: 1px;
-            background: var(--accent); border-radius: 4px;
-            cursor: pointer; display: flex; align-items: center; justify-content: center;
-            font-size: 9px; font-weight: 700; color: white;
-            min-width: 40px; transition: filter 0.15s, box-shadow 0.15s; z-index: 1;
+            position: absolute;
+            height: 24px;
+            top: 1px;
+            background: var(--accent);
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            color: white;
+            min-width: 45px;
+            transition: all 0.15s ease;
+            z-index: 1;
+            letter-spacing: 0.5px;
         }
-        .bloco-acorde:hover { filter: brightness(1.2); z-index: 3; }
-        .bloco-acorde.ativo { box-shadow: 0 0 14px var(--accent2); z-index: 2; }
+        .bloco-acorde:hover {
+            filter: brightness(1.2);
+            z-index: 3;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+        .bloco-acorde.ativo {
+            box-shadow: 0 0 20px var(--accent2);
+            z-index: 5;
+            transform: scale(1.08);
+            background: var(--accent2);
+        }
 
         .cursor-play {
-            position: absolute; top: 0; bottom: 0; width: 2px;
-            background: var(--accent2); z-index: 4; pointer-events: none;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--accent2);
+            z-index: 4;
+            pointer-events: none;
             display: none;
+            box-shadow: 0 0 10px var(--accent2);
         }
 
+        /* ==================== KARAOKÊ ==================== */
+        .karaoke-acorde {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 90px;
+            font-weight: 900;
+            color: var(--accent2);
+            text-shadow: 
+                0 0 20px rgba(39, 174, 96, 0.8),
+                0 0 40px rgba(39, 174, 96, 0.6),
+                0 0 80px rgba(39, 174, 96, 0.4),
+                0 4px 8px rgba(0, 0, 0, 0.5);
+            pointer-events: none;
+            z-index: 200;
+            opacity: 0;
+            transition: opacity 0.1s ease-out;
+            letter-spacing: 2px;
+        }
+
+        /* ==================== CONSOLE ==================== */
         .console {
-            height: 100px; background: #050510; border-top: 1px solid var(--border);
-            padding: 8px 12px; overflow-y: auto;
-            font-family: 'Courier New', monospace; font-size: 9px;
+            height: 110px;
+            background: #050510;
+            border-top: 1px solid var(--border);
+            padding: 10px 16px;
+            overflow-y: auto;
+            font-family: 'Courier New', 'Consolas', monospace;
+            font-size: 10px;
+            line-height: 1.6;
             flex-shrink: 0;
         }
         .console .ok { color: #27ae60; }
         .console .warn { color: #f39c12; }
         .console .erro { color: #e74c3c; }
         .console .info { color: #3498db; }
+        .console .cifraclub { color: #8e44ad; font-weight: 700; }
 
-        .modal {
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.85); display: flex;
-            align-items: center; justify-content: center; z-index: 100;
-        }
-        .modal.hidden { display: none; }
-        .modal-box {
-            background: var(--panel); border-radius: 14px; padding: 25px;
-            text-align: center; border: 2px dashed var(--accent); max-width: 450px;
-        }
-        .modal-box h3 { color: var(--accent); margin-bottom: 10px; }
-        .modal-progress {
-            height: 6px; background: var(--border); border-radius: 3px;
-            margin-top: 12px; overflow: hidden; display: none;
-        }
-        .modal-progress-fill { height: 100%; background: var(--accent2); width: 0%; transition: width 0.3s; }
-
-        /* ==================== MINI-BRAÇO CIFRACLUB ==================== */
+        /* ==================== MINI-BRAÇO ==================== */
         #bracoFloat {
             position: fixed;
-            bottom: 115px;
-            right: 15px;
+            bottom: 125px;
+            right: 20px;
             z-index: 50;
-            box-shadow: 0 6px 24px rgba(0,0,0,0.7);
-            border-radius: 8px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
-            border: 2px solid #3d2b1f;
+            border: 3px solid #3d2b1f;
         }
-        #bracoFloat.visivel { opacity: 1; }
+        #bracoFloat.visivel {
+            opacity: 1;
+        }
+
+        /* ==================== MODAIS ==================== */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+        .modal.hidden { display: none; }
+        .modal-box {
+            background: var(--panel);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            border: 2px dashed var(--accent);
+            max-width: 480px;
+            width: 90%;
+        }
+        .modal-box h3 {
+            color: var(--accent);
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+        .modal-box p {
+            color: var(--text2);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .modal-progress {
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            margin-top: 16px;
+            overflow: hidden;
+            display: none;
+        }
+        .modal-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent2), #2ecc71);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+
+        /* ==================== RESPONSIVO ==================== */
+        @media (max-width: 768px) {
+            .panel-esquerdo { width: 100%; min-width: 100%; }
+            .main-layout { flex-direction: column; }
+            .piano-container { height: 50vh; }
+            .karaoke-acorde { font-size: 50px; }
+            #bracoFloat { bottom: 10px; right: 10px; }
+        }
     </style>
 </head>
 <body>
 
+    <!-- ============================================================ -->
     <!-- HEADER -->
+    <!-- ============================================================ -->
     <div class="header">
-        <div class="logo">🎸 Violão <span>Compositor</span> Sertanejo v2.2</div>
+        <div class="logo">
+            🎸 Violão <span>Compositor</span> Sertanejo
+            <span class="version-tag">v2.3.0</span>
+        </div>
         <div class="status">
             <div class="status-dot" id="statusDot"></div>
             <span id="statusText">Aguardando Samples</span>
         </div>
     </div>
 
-    <!-- MAIN LAYOUT -->
+    <!-- ============================================================ -->
+    <!-- LAYOUT PRINCIPAL -->
+    <!-- ============================================================ -->
     <div class="main-layout">
 
-        <!-- PAINEL ESQUERDO -->
+        <!-- ==================== PAINEL ESQUERDO ==================== -->
         <div class="panel-esquerdo">
-            <div class="panel-titulo">📚 Acordes</div>
+
+            <!-- MODO CIFRACLUB -->
+            <div class="panel-titulo">📝 Modo CifraClub</div>
+            <div class="cifraclub-section">
+                <textarea id="inputCifra" placeholder="Cole sua cifra aqui...
+
+Exemplo:
+C          G           Am         F
+Hoje eu quero te amar sem parar...
+
+Dm         G7          C
+E sentir o teu calor..."></textarea>
+                <button class="btn cifraclub-btn" id="btnParseCifra" style="width:100%;margin-top:8px;">
+                    🔄 Converter para Grade
+                </button>
+                <div class="dica-texto">
+                    💡 <strong>Ctrl+V</strong> para colar cifras do CifraClub, Cifras.com.br, etc.<br>
+                    📋 Acordes reconhecidos: <strong>C, Am, G7, F#m, Bb, C7M, C9...</strong>
+                </div>
+            </div>
+
+            <!-- BIBLIOTECA DE ACORDES -->
+            <div class="panel-titulo">📚 Biblioteca de Acordes</div>
             <div id="categoriasContainer"></div>
 
-            <div class="panel-titulo">💡 Ferramentas</div>
-            <button class="btn" id="btnSugerir" style="margin:4px 8px;width:calc(100% - 16px);">🔍 Sugerir Próximo</button>
-            <button class="btn" id="btnRitmoSertanejo" style="margin:4px 8px;width:calc(100% - 16px);">🎵 Ritmo Sertanejo</button>
+            <!-- FERRAMENTAS -->
+            <div class="panel-titulo">💡 Ferramentas Rápidas</div>
+            <div style="padding: 8px 12px; display: flex; flex-direction: column; gap: 6px;">
+                <button class="btn" id="btnSugerir" style="width:100%;">🔍 Sugerir Próximo Acorde</button>
+                <button class="btn" id="btnRitmoSertanejo" style="width:100%;">🎵 Aplicar Ritmo Sertanejo</button>
+            </div>
 
-            <div class="panel-titulo">✏️ Acorde Custom</div>
+            <!-- EDITOR DE ACORDE CUSTOM -->
+            <div class="panel-titulo">✏️ Editor de Acorde Personalizado</div>
             <div class="editor-custom">
                 <input type="text" id="inputNomeCustom" placeholder="Nome do acorde" value="MeuAcorde">
                 <div id="cordasEditor"></div>
-                <div style="display:flex;gap:4px;margin-top:6px;">
+                <div style="display:flex;gap:6px;margin-top:8px;">
                     <button class="btn" id="btnTestarCustom" style="flex:1;">▶ Testar</button>
                     <button class="btn" id="btnSalvarCustom" style="flex:1;background:var(--accent);color:white;">💾 Salvar</button>
                 </div>
-                <div id="tagsCustom" style="margin-top:6px;display:flex;flex-wrap:wrap;gap:3px;"></div>
+                <div id="tagsCustom" style="margin-top:8px;display:flex;flex-wrap:wrap;gap:4px;"></div>
             </div>
         </div>
 
-        <!-- PIANO ROLL -->
+        <!-- ==================== PIANO ROLL ==================== -->
         <div class="piano-container">
+            <!-- TOOLBAR -->
             <div class="toolbar">
-                <button class="btn play" id="btnPlay" title="Play (Espaço)">▶</button>
+                <button class="btn play" id="btnPlay" title="Play / Pause (Espaço)">▶</button>
                 <button class="btn stop" id="btnStop" title="Parar">■</button>
-                <button class="btn" id="btnLoop" title="Loop">🔁</button>
-                <span style="color:var(--border);">|</span>
-                <div class="bpm-box">BPM <input type="number" id="bpmInput" value="90" min="40" max="220"></div>
+                <button class="btn" id="btnLoop" title="Ativar/Desativar Loop">🔁</button>
+                
+                <div class="separator"></div>
+                
+                <div class="bpm-box">
+                    BPM
+                    <input type="number" id="bpmInput" value="90" min="40" max="220">
+                </div>
+                
                 <select class="btn" id="compassoSelect">
-                    <option value="4">4/4</option><option value="3">3/4</option><option value="6">6/8</option>
+                    <option value="4">4/4</option>
+                    <option value="3">3/4</option>
+                    <option value="6">6/8</option>
                 </select>
+                
                 <select class="btn" id="modoSelect">
-                    <option value="batida_sertaneja">🎤 Batida</option>
-                    <option value="dedilhado_suave">🤚 Dedilhado</option>
-                    <option value="batida_cheia">🔥 Cheia</option>
+                    <option value="batida_sertaneja">🎤 Batida Sertaneja</option>
+                    <option value="dedilhado_suave">🤚 Dedilhado Suave</option>
+                    <option value="batida_cheia">🔥 Batida Cheia</option>
                     <option value="fingerstyle">🎸 Fingerstyle</option>
                     <option value="abafado">🔇 Palm Mute</option>
                 </select>
-                <span style="color:var(--border);">|</span>
-                <button class="btn export" id="btnExportar">📝 Cifra</button>
-                <button class="btn" id="btnCopiar">📋 Copiar</button>
-                <button class="btn" id="btnSalvarProjeto">💾 Salvar</button>
-                <button class="btn" id="btnCarregarProjeto">📂 Abrir</button>
-                <span style="color:var(--border);">|</span>
-                <button class="btn" id="btnUpload">📁 Samples</button>
-                <button class="btn" id="btnLimpar">🗑️ Limpar</button>
+                
+                <div class="separator"></div>
+                
+                <button class="btn export-btn" id="btnExportar">📝 Exportar Cifra</button>
+                <button class="btn" id="btnCopiar">📋 Copiar Progressão</button>
+                <button class="btn" id="btnSalvarProjeto">💾 Salvar Projeto</button>
+                <button class="btn" id="btnCarregarProjeto">📂 Carregar Projeto</button>
+                
+                <div class="separator"></div>
+                
+                <button class="btn" id="btnUpload">📁 Carregar Samples</button>
+                <button class="btn" id="btnLimpar" style="color:var(--danger);">🗑️ Limpar Grade</button>
             </div>
 
+            <!-- PIANO ROLL GRID -->
             <div class="piano-grid" id="pianoGrid">
                 <div class="piano-inner">
                     <div class="piano-keys" id="pianoKeys"></div>
@@ -292,94 +738,122 @@
         </div>
     </div>
 
-    <!-- CONSOLE -->
+    <!-- ============================================================ -->
+    <!-- CONSOLE DE LOG -->
+    <!-- ============================================================ -->
     <div class="console" id="console">
-        <span class="info">> 🎸 Violão Compositor Sertanejo Pro v2.2.0</span>
+        <span class="info">> 🎸 Violão Compositor Sertanejo Pro v2.3.0 inicializado</span>
     </div>
 
-    <!-- MINI-BRAÇO CIFRACLUB (flutuante) -->
+    <!-- ============================================================ -->
+    <!-- KARAOKÊ - ACORDE GIGANTE -->
+    <!-- ============================================================ -->
+    <div class="karaoke-acorde" id="karaokeAcorde"></div>
+
+    <!-- ============================================================ -->
+    <!-- MINI-BRAÇO CIFRACLUB (FLUTUANTE) -->
+    <!-- ============================================================ -->
     <div id="bracoFloat"></div>
 
-    <!-- MODAL UPLOAD -->
+    <!-- ============================================================ -->
+    <!-- MODAL DE UPLOAD DE SAMPLES -->
+    <!-- ============================================================ -->
     <div class="modal hidden" id="modalUpload">
         <div class="modal-box">
-            <h3>📂 Carregar Samples</h3>
-            <p style="color:var(--text2);font-size:12px;">Selecione as 43 pastas do dataset Kaggle</p>
+            <h3>📂 Carregar Samples de Violão</h3>
+            <p>Selecione as <strong>42 pastas</strong> do dataset Kaggle<br>
+               (A2, A3, A4, ..., Gsharp5)</p>
             <input type="file" id="folderInput" webkitdirectory multiple style="display:none;">
-            <button class="btn" id="btnSelecionarPastas" style="margin-top:12px;padding:10px 24px;font-size:13px;">
+            <button class="btn cifraclub-btn" id="btnSelecionarPastas" style="margin-top:16px;padding:12px 28px;font-size:14px;">
                 📁 Selecionar Pastas
             </button>
             <div class="modal-progress" id="modalProgress">
                 <div class="modal-progress-fill" id="modalProgressFill"></div>
             </div>
-            <p id="modalStatus" style="font-size:10px;color:var(--text2);margin-top:6px;"></p>
-            <button class="btn" id="btnFecharUpload" style="margin-top:10px;">Fechar</button>
+            <p id="modalStatus" style="font-size:11px;color:var(--text2);margin-top:8px;"></p>
+            <button class="btn" id="btnFecharUpload" style="margin-top:12px;">Fechar</button>
         </div>
     </div>
 
-    <!-- MODAL EXPORT -->
+    <!-- ============================================================ -->
+    <!-- MODAL DE EXPORTAÇÃO DE CIFRA -->
+    <!-- ============================================================ -->
     <div class="modal hidden" id="modalExport">
         <div class="modal-box">
             <h3>📝 Cifra Exportada</h3>
-            <pre id="cifraConteudo" style="background:#0a0a1a;padding:12px;border-radius:8px;text-align:left;font-family:monospace;font-size:11px;max-height:300px;overflow-y:auto;color:var(--text);"></pre>
-            <button class="btn" id="btnFecharExport" style="margin-top:10px;">Fechar</button>
+            <pre id="cifraConteudo" style="background:#0a0a1a;padding:14px;border-radius:8px;text-align:left;font-family:'Courier New',monospace;font-size:12px;max-height:350px;overflow-y:auto;color:var(--text);line-height:1.6;"></pre>
+            <button class="btn" id="btnFecharExport" style="margin-top:12px;">Fechar</button>
         </div>
     </div>
 
+    <!-- ============================================================ -->
+    <!-- SCRIPTS -->
+    <!-- ============================================================ -->
     <script>
         // ============================================================
-        // MINI-BRAÇO CIFRACLUB (45 linhas)
+        // CLASSE: MiniBracoCifraClub
+        // Desenha o braço do violão no estilo CifraClub
         // ============================================================
         class MiniBracoCifraClub {
             constructor() {
                 this.c = document.createElement('canvas');
-                this.c.width = 110;
-                this.c.height = 140;
+                this.c.width = 115;
+                this.c.height = 145;
                 this.x = this.c.getContext('2d');
             }
 
+            /**
+             * Desenha o braço do violão com a posição do acorde
+             * @param {string} nome - Nome do acorde (ex: "C", "Am")
+             * @param {number[]} pos - Array com 6 posições de traste
+             */
             desenhar(nome, pos) {
                 const { x, c } = this;
                 const w = c.width;
                 const h = c.height;
 
+                // Limpar canvas
                 x.clearRect(0, 0, w, h);
 
-                // Fundo madeira
+                // Fundo (cor de madeira clara)
                 x.fillStyle = '#f5f0e8';
                 x.fillRect(0, 0, w, h);
 
                 // Cabeça do braço (marrom escuro)
                 x.fillStyle = '#3d2b1f';
-                x.fillRect(0, 0, w, 20);
+                x.fillRect(0, 0, w, 22);
 
                 // Nome do acorde na cabeça
-                x.fillStyle = '#fff';
-                x.font = 'bold 10px sans-serif';
+                x.fillStyle = '#ffffff';
+                x.font = 'bold 11px "Segoe UI", sans-serif';
                 x.textAlign = 'center';
-                x.fillText(nome, w / 2, 14);
+                x.fillText(nome, w / 2, 15);
 
-                // Posições das cordas
-                const cordasX = [22, 37, 52, 67, 82, 97];
+                // Posições das cordas (X) e nomes
+                const cordasX = [23, 38, 53, 68, 83, 98];
                 const cordasNomes = ['E', 'A', 'D', 'G', 'B', 'E'];
-                const trastesY = [44, 64, 84, 104, 124];
-                const inicioY = 36;
 
-                // Nomes das cordas
-                x.fillStyle = '#888';
-                x.font = '7px sans-serif';
+                // Posições dos trastes (Y)
+                const trastesY = [46, 66, 86, 106, 126];
+                const inicioY = 38;
+
+                // Desenhar nomes das cordas
+                x.fillStyle = '#999';
+                x.font = '8px "Segoe UI", sans-serif';
                 x.textAlign = 'center';
-                cordasNomes.forEach((nome, i) => x.fillText(nome, cordasX[i], 32));
+                cordasNomes.forEach((nomeCorda, i) => {
+                    x.fillText(nomeCorda, cordasX[i], 34);
+                });
 
-                // Pestana (linha grossa)
-                x.strokeStyle = '#333';
+                // Desenhar pestana (linha grossa no topo)
+                x.strokeStyle = '#444';
                 x.lineWidth = 3;
                 x.beginPath();
                 x.moveTo(16, inicioY);
                 x.lineTo(w - 16, inicioY);
                 x.stroke();
 
-                // Trastes
+                // Desenhar trastes (linhas finas)
                 trastesY.forEach(y => {
                     x.strokeStyle = '#ccc';
                     x.lineWidth = 1;
@@ -389,7 +863,7 @@
                     x.stroke();
                 });
 
-                // Cordas
+                // Desenhar cordas (linhas verticais)
                 cordasX.forEach(cx2 => {
                     x.strokeStyle = '#c9a87c';
                     x.lineWidth = 1.5;
@@ -399,48 +873,50 @@
                     x.stroke();
                 });
 
-                // Desenhar posições do acorde
-                if (pos) {
-                    // Verificar pestana (barre)
+                // Desenhar posições do acorde (se fornecidas)
+                if (pos && pos.length === 6) {
+                    // Detectar pestana (barre) - 3+ cordas consecutivas no mesmo traste
                     const pestana = this._detectarPestana(pos);
 
-                    // Ajustar offset se acorde estiver em trastes altos
-                    const ativos = pos.filter(t => t > 0);
-                    const trasteMin = ativos.length > 0 ? Math.min(...ativos) : 1;
-                    let offset = 0;
-                    if (trasteMin > 3) {
-                        offset = trasteMin - 1;
-                        // Mostrar número do traste inicial
-                        x.fillStyle = '#333';
-                        x.font = 'bold 8px sans-serif';
+                    // Calcular offset para acordes em trastes altos
+                    const trastesAtivos = pos.filter(t => t > 0);
+                    const trasteMinimo = trastesAtivos.length > 0 ? Math.min(...trastesAtivos) : 1;
+                    let offsetTraste = 0;
+
+                    // Se o acorde começa após o 3º traste, mostrar indicador
+                    if (trasteMinimo > 3) {
+                        offsetTraste = trasteMinimo - 1;
+                        x.fillStyle = '#444';
+                        x.font = 'bold 9px "Segoe UI", sans-serif';
                         x.textAlign = 'left';
-                        x.fillText(`${trasteMin}fr`, 6, trastesY[0] + 4);
+                        x.fillText(`${trasteMinimo}fr`, 7, trastesY[0] + 5);
                     }
 
-                    pos.forEach((traste, i) => {
-                        const cx2 = cordasX[i];
+                    // Desenhar cada corda
+                    pos.forEach((traste, indiceCorda) => {
+                        const cordaX = cordasX[indiceCorda];
 
                         if (traste === -1) {
                             // Corda não toca → X vermelho
                             x.fillStyle = '#e74c3c';
-                            x.font = 'bold 10px sans-serif';
+                            x.font = 'bold 11px "Segoe UI", sans-serif';
                             x.textAlign = 'center';
-                            x.fillText('✕', cx2, inicioY - 6);
+                            x.fillText('✕', cordaX, inicioY - 6);
                         } else if (traste === 0) {
                             // Corda solta → círculo vazio
-                            x.strokeStyle = '#333';
+                            x.strokeStyle = '#444';
                             x.lineWidth = 1.5;
                             x.beginPath();
-                            x.arc(cx2, inicioY - 6, 4, 0, Math.PI * 2);
+                            x.arc(cordaX, inicioY - 6, 4.5, 0, Math.PI * 2);
                             x.stroke();
                         } else {
                             // Traste pressionado → bolinha preta
-                            const tVisual = traste - offset - 1;
-                            if (tVisual >= 0 && tVisual < trastesY.length) {
-                                const y = trastesY[tVisual] - 10;
+                            const trasteVisual = traste - offsetTraste - 1;
+                            if (trasteVisual >= 0 && trasteVisual < trastesY.length) {
+                                const y = trastesY[trasteVisual] - 10;
                                 x.fillStyle = '#333';
                                 x.beginPath();
-                                x.arc(cx2, y, 5, 0, Math.PI * 2);
+                                x.arc(cordaX, y, 5.5, 0, Math.PI * 2);
                                 x.fill();
                             }
                         }
@@ -448,26 +924,33 @@
 
                     // Desenhar pestana se detectada
                     if (pestana) {
-                        const tVisual = pestana.traste - offset - 1;
-                        if (tVisual >= 0 && tVisual < trastesY.length) {
-                            const y = trastesY[tVisual] - 10;
+                        const trasteVisual = pestana.traste - offsetTraste - 1;
+                        if (trasteVisual >= 0 && trasteVisual < trastesY.length) {
+                            const y = trastesY[trasteVisual] - 10;
                             const x1 = cordasX[pestana.cordas[0]];
                             const x2 = cordasX[pestana.cordas[1]];
                             x.fillStyle = '#333';
-                            x.fillRect(x1 - 5, y - 3, x2 - x1 + 10, 6);
+                            x.fillRect(x1 - 5, y - 3, x2 - x1 + 10, 7);
                         }
                     }
                 }
             }
 
+            /**
+             * Detecta se há pestana (barre) no acorde
+             * @param {number[]} pos - Posições dos trastes
+             * @returns {object|null} - { traste, cordas: [inicio, fim] } ou null
+             */
             _detectarPestana(pos) {
-                // Detecta pestana: 3+ cordas consecutivas com mesmo traste > 0
                 for (let i = 0; i < pos.length - 2; i++) {
                     if (pos[i] > 0) {
                         let count = 1;
                         for (let j = i + 1; j < pos.length; j++) {
-                            if (pos[j] === pos[i]) count++;
-                            else break;
+                            if (pos[j] === pos[i]) {
+                                count++;
+                            } else {
+                                break;
+                            }
                         }
                         if (count >= 3) {
                             return { traste: pos[i], cordas: [i, i + count - 1] };
@@ -479,20 +962,30 @@
         }
 
         // ============================================================
-        // VIOLAO ENGINE
+        // CLASSE: ViolaoEngine
+        // Engine de áudio com suporte a samples multi-artículação
         // ============================================================
         class ViolaoEngine {
             constructor() {
+                // Contexto de áudio
                 this.ctx = null;
+
+                // Buffers de áudio carregados
                 this.buffers = {};
+
+                // Controle de carregamento
                 this.carregados = 0;
                 this.total = 36;
                 this.pronto = false;
+
+                // Callbacks
                 this.onProgress = null;
                 this.onReady = null;
 
+                // Cordas do violão (da mais grave para a mais aguda)
                 this.cordas = ['E6', 'A5', 'D4', 'G3', 'B2', 'E1'];
 
+                // Notas correspondentes a cada traste de cada corda
                 this.cordaNotas = {
                     'E6': ['E2', 'F2', 'F#2', 'G2', 'G#2', 'A2', 'A#2', 'B2', 'C3', 'C#3', 'D3', 'D#3', 'E3'],
                     'A5': ['A2', 'A#2', 'B2', 'C3', 'C#3', 'D3', 'D#3', 'E3', 'F3', 'F#3', 'G3', 'G#3', 'A3'],
@@ -502,53 +995,171 @@
                     'E1': ['E4', 'F4', 'F#4', 'G4', 'G#4', 'A4', 'A#4', 'B4', 'C5', 'C#5', 'D5', 'D#5', 'E5']
                 };
 
+                // Dicionário de acordes (nome → posição nos trastes)
                 this.acordes = {
-                    'C': [0, 3, 2, 0, 1, 0], 'G': [3, 2, 0, 0, 0, 3], 'D': [0, 0, 0, 2, 3, 2],
-                    'A': [0, 0, 2, 2, 2, 0], 'E': [0, 2, 2, 1, 0, 0], 'F': [1, 3, 3, 2, 1, 1],
+                    // Maiores
+                    'C': [0, 3, 2, 0, 1, 0],
+                    'C#': [0, 4, 3, 1, 2, 1],
+                    'D': [0, 0, 0, 2, 3, 2],
+                    'D#': [0, 1, 1, 3, 4, 3],
+                    'E': [0, 2, 2, 1, 0, 0],
+                    'F': [1, 3, 3, 2, 1, 1],
+                    'F#': [2, 4, 4, 3, 2, 2],
+                    'G': [3, 2, 0, 0, 0, 3],
+                    'G#': [4, 3, 1, 1, 1, 4],
+                    'A': [0, 0, 2, 2, 2, 0],
+                    'A#': [1, 1, 3, 3, 3, 1],
                     'B': [0, 2, 4, 4, 4, 2],
-                    'Am': [0, 0, 2, 2, 1, 0], 'Em': [0, 2, 2, 0, 0, 0], 'Dm': [0, 0, 0, 2, 3, 1],
-                    'C7': [0, 3, 2, 3, 1, 0], 'G7': [3, 2, 0, 0, 0, 1], 'D7': [0, 0, 0, 2, 1, 2],
+
+                    // Menores
+                    'Cm': [0, 3, 5, 5, 4, 3],
+                    'C#m': [0, 4, 6, 6, 5, 4],
+                    'Dm': [0, 0, 0, 2, 3, 1],
+                    'D#m': [0, 1, 1, 3, 4, 2],
+                    'Em': [0, 2, 2, 0, 0, 0],
+                    'Fm': [1, 3, 3, 1, 1, 1],
+                    'F#m': [2, 4, 4, 2, 2, 2],
+                    'Gm': [3, 5, 5, 3, 3, 3],
+                    'G#m': [4, 6, 6, 4, 4, 4],
+                    'Am': [0, 0, 2, 2, 1, 0],
+                    'A#m': [1, 1, 3, 3, 2, 1],
+                    'Bm': [0, 2, 4, 4, 3, 2],
+
+                    // Com Sétima
+                    'C7': [0, 3, 2, 3, 1, 0],
+                    'D7': [0, 0, 0, 2, 1, 2],
+                    'E7': [0, 2, 0, 1, 0, 0],
+                    'F7': [1, 3, 1, 2, 1, 1],
+                    'G7': [3, 2, 0, 0, 0, 1],
                     'A7': [0, 0, 2, 0, 2, 0],
-                    'C7M': [0, 3, 2, 0, 0, 0], 'G7M': [3, 2, 0, 0, 0, 2],
-                    'Cm': [0, 3, 5, 5, 4, 3], 'Gm': [3, 5, 5, 3, 3, 3],
-                    'F#m': [2, 4, 4, 2, 2, 2], 'Bm': [0, 2, 4, 4, 3, 2],
-                    'C9': [0, 3, 2, 3, 3, 3], 'G9': [3, 2, 0, 2, 0, 3], 'D9': [0, 0, 0, 2, 1, 0],
+                    'B7': [0, 2, 1, 2, 0, 2],
+
+                    // 7ª Maior
+                    'C7M': [0, 3, 2, 0, 0, 0],
+                    'D7M': [0, 0, 0, 2, 2, 2],
+                    'E7M': [0, 2, 1, 1, 0, 0],
+                    'F7M': [1, 3, 2, 2, 1, 0],
+                    'G7M': [3, 2, 0, 0, 0, 2],
+                    'A7M': [0, 0, 2, 1, 2, 0],
+                    'B7M': [0, 2, 3, 3, 2, 2],
+
+                    // Nonas
+                    'C9': [0, 3, 2, 3, 3, 3],
+                    'D9': [0, 0, 0, 2, 1, 0],
+                    'G9': [3, 2, 0, 2, 0, 3],
                     'A9': [0, 0, 2, 0, 2, 2],
-                    'Cadd9': [0, 3, 2, 0, 3, 0], 'Gadd9': [3, 2, 0, 2, 0, 3],
-                    'Csus2': [0, 3, 0, 0, 3, 0], 'Dsus2': [0, 0, 0, 2, 3, 0], 'Esus2': [0, 2, 4, 4, 0, 0],
-                    'Csus4': [0, 3, 3, 0, 1, 0], 'Dsus4': [0, 0, 0, 2, 3, 3], 'Esus4': [0, 2, 2, 2, 0, 0],
-                    'Cdim': [0, 3, 4, 2, 0, 0], 'Ddim': [0, 0, 0, 1, 3, 1], 'Edim': [0, 1, 2, 0, 2, 0],
-                    'C_sertanejo': [0, 3, 2, 0, 1, 0], 'G_sertanejo': [3, 2, 0, 0, 0, 3],
-                    'D_sertanejo': [0, 0, 0, 2, 3, 2], 'A_sertanejo': [0, 0, 2, 2, 2, 0]
+
+                    // Add9
+                    'Cadd9': [0, 3, 2, 0, 3, 0],
+                    'Gadd9': [3, 2, 0, 2, 0, 3],
+
+                    // Suspensos
+                    'Csus2': [0, 3, 0, 0, 3, 0],
+                    'Dsus2': [0, 0, 0, 2, 3, 0],
+                    'Esus2': [0, 2, 4, 4, 0, 0],
+                    'Csus4': [0, 3, 3, 0, 1, 0],
+                    'Dsus4': [0, 0, 0, 2, 3, 3],
+                    'Esus4': [0, 2, 2, 2, 0, 0],
+                    'Gsus4': [3, 3, 0, 0, 1, 3],
+                    'Asus4': [0, 0, 2, 2, 3, 0],
+
+                    // Diminutos
+                    'Cdim': [0, 3, 4, 2, 0, 0],
+                    'Ddim': [0, 0, 0, 1, 3, 1],
+                    'Edim': [0, 1, 2, 0, 2, 0],
+                    'Fdim': [1, 3, 4, 2, 0, 0],
+                    'Gdim': [3, 4, 5, 3, 0, 0],
+                    'Adim': [0, 0, 1, 2, 1, 0],
+                    'Bdim': [0, 1, 2, 0, 2, 0],
+
+                    // Sertanejos (posições alternativas)
+                    'C_sertanejo': [0, 3, 2, 0, 1, 0],
+                    'G_sertanejo': [3, 2, 0, 0, 0, 3],
+                    'D_sertanejo': [0, 0, 0, 2, 3, 2],
+                    'A_sertanejo': [0, 0, 2, 2, 2, 0]
                 };
             }
 
-            estaPronto() { return this.pronto; }
-            resumeContext() { if (this.ctx?.state === 'suspended') this.ctx.resume(); }
+            /**
+             * Verifica se o engine está pronto para tocar
+             */
+            estaPronto() {
+                return this.pronto;
+            }
 
+            /**
+             * Resume o contexto de áudio (necessário após interação do usuário)
+             */
+            resumeContext() {
+                if (this.ctx && this.ctx.state === 'suspended') {
+                    this.ctx.resume();
+                }
+            }
+
+            /**
+             * Inicializa o engine carregando os samples do dataset
+             * @param {object} arquivosPorPasta - Objeto { nomePasta: [{nome, file}] }
+             */
             async init(arquivosPorPasta) {
                 this.ctx = new(window.AudioContext || window.webkitAudioContext)();
                 this.buffers = {};
                 this.carregados = 0;
 
+                // Mapeamento de quais arquivos precisamos carregar
                 const trastesParaNotas = {
-                    'E6_t0': 'E2', 'E6_t3': 'G2', 'E6_t5': 'A2', 'E6_t7': 'B2', 'E6_t10': 'D3', 'E6_t12': 'E3',
-                    'A5_t0': 'A2', 'A5_t3': 'C3', 'A5_t5': 'D3', 'A5_t7': 'E3', 'A5_t10': 'G3', 'A5_t12': 'A3',
-                    'D4_t0': 'D3', 'D4_t2': 'E3', 'D4_t4': 'Fsharp3', 'D4_t7': 'A3', 'D4_t9': 'B3', 'D4_t12': 'D4',
-                    'G3_t0': 'G3', 'G3_t2': 'A3', 'G3_t4': 'B3', 'G3_t7': 'D4', 'G3_t9': 'E4', 'G3_t12': 'G4',
-                    'B2_t0': 'B3', 'B2_t1': 'C4', 'B2_t3': 'D4', 'B2_t5': 'E4', 'B2_t8': 'G4', 'B2_t12': 'B4',
-                    'E1_t0': 'E4', 'E1_t1': 'F4', 'E1_t3': 'G4', 'E1_t5': 'A4', 'E1_t8': 'C5', 'E1_t12': 'E5'
+                    'E6_t0': 'E2',
+                    'E6_t3': 'G2',
+                    'E6_t5': 'A2',
+                    'E6_t7': 'B2',
+                    'E6_t10': 'D3',
+                    'E6_t12': 'E3',
+                    'A5_t0': 'A2',
+                    'A5_t3': 'C3',
+                    'A5_t5': 'D3',
+                    'A5_t7': 'E3',
+                    'A5_t10': 'G3',
+                    'A5_t12': 'A3',
+                    'D4_t0': 'D3',
+                    'D4_t2': 'E3',
+                    'D4_t4': 'Fsharp3',
+                    'D4_t7': 'A3',
+                    'D4_t9': 'B3',
+                    'D4_t12': 'D4',
+                    'G3_t0': 'G3',
+                    'G3_t2': 'A3',
+                    'G3_t4': 'B3',
+                    'G3_t7': 'D4',
+                    'G3_t9': 'E4',
+                    'G3_t12': 'G4',
+                    'B2_t0': 'B3',
+                    'B2_t1': 'C4',
+                    'B2_t3': 'D4',
+                    'B2_t5': 'E4',
+                    'B2_t8': 'G4',
+                    'B2_t12': 'B4',
+                    'E1_t0': 'E4',
+                    'E1_t1': 'F4',
+                    'E1_t3': 'G4',
+                    'E1_t5': 'A4',
+                    'E1_t8': 'C5',
+                    'E1_t12': 'E5'
                 };
 
+                // Sufixos de articulação para tentar (ordem de preferência)
                 const sufixosTry = ['spn', 'sfn', 'npn', 'spm'];
 
+                // Carregar cada nota necessária
                 for (const [trasteKey, nota] of Object.entries(trastesParaNotas)) {
                     let carregado = false;
+
                     for (const sufixo of sufixosTry) {
                         const nomeArquivo = `${nota}-1-${sufixo}`;
                         const pasta = arquivosPorPasta[nota];
+
                         if (!pasta) continue;
+
                         const encontrado = pasta.find(f => f.nome === nomeArquivo);
+
                         if (encontrado) {
                             try {
                                 const arrayBuffer = await encontrado.file.arrayBuffer();
@@ -557,19 +1168,39 @@
                                 this.carregados++;
                                 carregado = true;
                                 break;
-                            } catch (e) {}
+                            } catch (e) {
+                                console.warn(`Erro ao decodificar: ${nomeArquivo}`);
+                            }
                         }
                     }
-                    if (this.onProgress) this.onProgress(Math.round((this.carregados / this.total) * 100), nota);
+
+                    // Atualizar progresso
+                    if (this.onProgress) {
+                        const percent = Math.round((this.carregados / this.total) * 100);
+                        this.onProgress(percent, nota);
+                    }
                 }
 
+                // Verificar se carregou o suficiente
                 this.pronto = this.carregados >= 20;
-                if (this.onReady) this.onReady(this.pronto);
+
+                if (this.onReady) {
+                    this.onReady(this.pronto);
+                }
+
                 return this.pronto;
             }
 
+            /**
+             * Toca um acorde completo
+             * @param {string} nome - Nome do acorde
+             * @param {number} intensidade - Volume (0 a 1)
+             * @param {string} modo - Modo de execução
+             * @param {number} duracao - Duração em segundos
+             */
             tocarAcorde(nome, intensidade = 0.7, modo = 'batida_sertanejo', duracao = 1.5) {
                 if (!this.pronto) return;
+
                 const posicao = this.acordes[nome];
                 if (!posicao) return;
 
@@ -579,66 +1210,97 @@
                 switch (modo) {
                     case 'batida_sertanejo':
                     case 'batida_cheia':
+                        // Raspar todas as cordas rapidamente
                         cordas.forEach((corda, i) => {
-                            if (posicao[i] >= 0) this.tocarCorda(corda, posicao[i], intensidade * 0.9, agora + i * 0.005,
-                                duracao);
+                            if (posicao[i] >= 0) {
+                                this.tocarCorda(corda, posicao[i], intensidade * 0.9, agora + i * 0.005, duracao);
+                            }
                         });
                         break;
+
                     case 'dedilhado_suave':
+                        // Padrão P-I-M-A-M-I (Polegar-Indicador-Médio-Anelar)
                         [0, 1, 3, 4, 5, 4, 3].forEach((ci, idx) => {
-                            if (posicao[ci] >= 0) this.tocarCorda(cordas[ci], posicao[ci], intensidade * 0.7, agora + idx *
-                                0.12, 2.0);
+                            if (posicao[ci] >= 0) {
+                                this.tocarCorda(cordas[ci], posicao[ci], intensidade * 0.7, agora + idx * 0.12, 2.0);
+                            }
                         });
                         break;
+
                     case 'fingerstyle':
+                        // Padrão alternado
                         [0, 3, 1, 4, 2, 5].forEach((ci, idx) => {
-                            if (posicao[ci] >= 0) this.tocarCorda(cordas[ci], posicao[ci], intensidade * 0.75, agora + idx *
-                                0.1, 1.8);
+                            if (posicao[ci] >= 0) {
+                                this.tocarCorda(cordas[ci], posicao[ci], intensidade * 0.75, agora + idx * 0.1, 1.8);
+                            }
                         });
                         break;
+
                     case 'abafado':
+                        // Palm mute - notas muito curtas
                         cordas.forEach((corda, i) => {
-                            if (posicao[i] >= 0) this.tocarCorda(corda, posicao[i], intensidade * 0.4, agora + i * 0.003,
-                                0.12);
+                            if (posicao[i] >= 0) {
+                                this.tocarCorda(corda, posicao[i], intensidade * 0.4, agora + i * 0.003, 0.12);
+                            }
                         });
                         break;
                 }
             }
 
+            /**
+             * Toca uma corda individual
+             */
             tocarCorda(corda, traste, intensidade, inicio, duracao) {
                 const key = `${corda}_t${traste}`;
                 const buffer = this.buffers[key];
+
                 if (!buffer) return;
 
                 const source = this.ctx.createBufferSource();
                 source.buffer = buffer;
+
                 const gain = this.ctx.createGain();
                 gain.gain.setValueAtTime(intensidade, inicio);
                 gain.gain.exponentialRampToValueAtTime(0.001, inicio + duracao);
+
                 source.connect(gain);
                 gain.connect(this.ctx.destination);
+
                 source.start(inicio);
                 source.stop(inicio + duracao + 0.05);
             }
         }
 
         // ============================================================
-        // COMPOSITOR APP
+        // CLASSE: CompositorApp
+        // Aplicativo principal - Interface e lógica de composição
         // ============================================================
         class CompositorApp {
             constructor() {
+                // Engine de áudio
                 this.engine = new ViolaoEngine();
+
+                // Configurações
                 this.modo = 'batida_sertanejo';
                 this.bpm = 90;
                 this.compasso = 4;
                 this.loop = true;
+
+                // Estado de reprodução
                 this.tocando = false;
                 this.cursorPos = 0;
                 this.timer = null;
+
+                // Grade de acordes (timeline)
                 this.grade = [];
+
+                // Acorde selecionado
                 this.acordeSel = null;
+
+                // Acordes personalizados
                 this.customAcordes = {};
 
+                // Lista de todas as notas do violão (para o piano roll)
                 this.notasViolao = [];
                 const todasNotas = new Set();
                 this.engine.cordas.forEach(corda => {
@@ -646,9 +1308,14 @@
                 });
                 this.notasViolao = Array.from(todasNotas).sort();
 
-                // 🆕 Mini-braço CifraClub
+                // Mini-braço CifraClub
                 this.miniBraco = new MiniBracoCifraClub();
 
+                // Elemento de karaokê
+                this._karaokeEl = null;
+                this._karaokeTimer = null;
+
+                // Inicializar
                 this.initDOM();
                 this.initEventos();
                 this.configEngine();
@@ -656,9 +1323,13 @@
                 this.buildCategorias();
                 this.buildEditor();
                 this.setupBracoFlutuante();
+                this.setupKaraoke();
                 this.loadCustomAcordes();
             }
 
+            // ============================================================
+            // INICIALIZAÇÃO DO DOM
+            // ============================================================
             initDOM() {
                 this.statusDot = document.getElementById('statusDot');
                 this.statusText = document.getElementById('statusText');
@@ -677,126 +1348,289 @@
                 this.cifraConteudo = document.getElementById('cifraConteudo');
                 this.folderInput = document.getElementById('folderInput');
                 this.bracoFloat = document.getElementById('bracoFloat');
+                this.inputCifra = document.getElementById('inputCifra');
             }
 
+            // ============================================================
+            // CONFIGURAÇÃO INICIAL
+            // ============================================================
             setupBracoFlutuante() {
                 this.bracoFloat.appendChild(this.miniBraco.c);
             }
 
+            setupKaraoke() {
+                this._karaokeEl = document.getElementById('karaokeAcorde');
+            }
+
+            configEngine() {
+                this.engine.onProgress = (pct, nota) => {
+                    this.modalProgressFill.style.width = pct + '%';
+                    this.modalStatus.textContent = `Carregando... ${pct}% - ${nota || ''}`;
+                };
+
+                this.engine.onReady = (ok) => {
+                    if (ok) {
+                        this.statusDot.classList.add('online');
+                        this.statusText.textContent = '✅ Samples Prontos!';
+                        this.modalUpload.classList.add('hidden');
+                        this.log('✅ Samples carregados com sucesso! Pronto para compor.', 'ok');
+                    } else {
+                        this.log('⚠️ Alguns samples não foram carregados. Verifique as pastas.', 'warn');
+                    }
+                };
+            }
+
+            // ============================================================
+            // EVENTOS
+            // ============================================================
             initEventos() {
+                // Playback
                 document.getElementById('btnPlay').addEventListener('click', () => this.togglePlay());
                 document.getElementById('btnStop').addEventListener('click', () => this.parar());
                 document.getElementById('btnLoop').addEventListener('click', function() {
                     this.classList.toggle('ativo');
                     window.app.loop = this.classList.contains('ativo');
                 });
-                document.getElementById('bpmInput').addEventListener('change', e => this.bpm = parseInt(e.target.value) ||
-                    90);
-                document.getElementById('compassoSelect').addEventListener('change', e => this.compasso = parseInt(e.target
-                    .value));
-                document.getElementById('modoSelect').addEventListener('change', e => this.modo = e.target.value);
+
+                // Configurações
+                document.getElementById('bpmInput').addEventListener('change', e => {
+                    this.bpm = parseInt(e.target.value) || 90;
+                });
+                document.getElementById('compassoSelect').addEventListener('change', e => {
+                    this.compasso = parseInt(e.target.value);
+                });
+                document.getElementById('modoSelect').addEventListener('change', e => {
+                    this.modo = e.target.value;
+                });
+
+                // Exportação
                 document.getElementById('btnExportar').addEventListener('click', () => this.exportarCifra());
                 document.getElementById('btnCopiar').addEventListener('click', () => this.copiarProgressao());
                 document.getElementById('btnSalvarProjeto').addEventListener('click', () => this.salvarProjeto());
                 document.getElementById('btnCarregarProjeto').addEventListener('click', () => this.carregarProjeto());
-                document.getElementById('btnUpload').addEventListener('click', () => this.modalUpload.classList.remove(
-                    'hidden'));
-                document.getElementById('btnLimpar').addEventListener('click', () => { this.grade = [];
-                    this.renderGrade();
-                    this.log('🧹 Grade limpa', 'info'); });
-                document.getElementById('btnSelecionarPastas').addEventListener('click', () => this.folderInput.click());
-                document.getElementById('btnFecharUpload').addEventListener('click', () => this.modalUpload.classList.add(
-                    'hidden'));
-                document.getElementById('btnFecharExport').addEventListener('click', () => this.modalExport.classList.add(
-                    'hidden'));
-                document.getElementById('btnSugerir').addEventListener('click', () => this.sugerirProximoAcorde());
-                document.getElementById('btnRitmoSertanejo').addEventListener('click', () => this
-                .aplicarRitmoSertanejo());
+
+                // Upload
+                document.getElementById('btnUpload').addEventListener('click', () => {
+                    this.modalUpload.classList.remove('hidden');
+                });
+                document.getElementById('btnSelecionarPastas').addEventListener('click', () => {
+                    this.folderInput.click();
+                });
+                document.getElementById('btnFecharUpload').addEventListener('click', () => {
+                    this.modalUpload.classList.add('hidden');
+                });
+                document.getElementById('btnFecharExport').addEventListener('click', () => {
+                    this.modalExport.classList.add('hidden');
+                });
                 this.folderInput.addEventListener('change', e => this.processUpload(e));
 
-                this.modalUpload.addEventListener('click', e => { if (e.target === this.modalUpload) this.modalUpload
-                        .classList.add('hidden'); });
-                this.modalExport.addEventListener('click', e => { if (e.target === this.modalExport) this.modalExport
-                        .classList.add('hidden'); });
+                // Limpeza
+                document.getElementById('btnLimpar').addEventListener('click', () => {
+                    this.grade = [];
+                    this.renderGrade();
+                    this.log('🧹 Grade limpa!', 'info');
+                });
 
+                // Ferramentas
+                document.getElementById('btnSugerir').addEventListener('click', () => this.sugerirProximoAcorde());
+                document.getElementById('btnRitmoSertanejo').addEventListener('click', () => this.aplicarRitmoSertanejo());
+
+                // CifraClub
+                document.getElementById('btnParseCifra').addEventListener('click', () => {
+                    this.parseCifraClub(this.inputCifra.value);
+                });
+
+                // Fechar modais com clique fora
+                this.modalUpload.addEventListener('click', e => {
+                    if (e.target === this.modalUpload) this.modalUpload.classList.add('hidden');
+                });
+                this.modalExport.addEventListener('click', e => {
+                    if (e.target === this.modalExport) this.modalExport.classList.add('hidden');
+                });
+
+                // Atalhos de teclado
                 document.addEventListener('keydown', e => {
+                    // Escape fecha modais
                     if (e.key === 'Escape') {
                         this.modalUpload.classList.add('hidden');
                         this.modalExport.classList.add('hidden');
                         return;
                     }
+
+                    // Ignorar se estiver em input (exceto range)
                     if (e.target.tagName === 'INPUT' && e.target.type !== 'range') return;
-                    if (e.key === ' ' && !e.ctrlKey) { e.preventDefault();
-                        this.togglePlay(); return; }
-                    if (e.key === 'Delete' && !e.ctrlKey) { this.grade = [];
+                    if (e.target.tagName === 'TEXTAREA') return;
+
+                    // Espaço = Play/Pause
+                    if (e.key === ' ' && !e.ctrlKey) {
+                        e.preventDefault();
+                        this.togglePlay();
+                        return;
+                    }
+
+                    // Delete = Limpar grade
+                    if (e.key === 'Delete' && !e.ctrlKey) {
+                        this.grade = [];
                         this.renderGrade();
-                        this.log('🧹 Grade limpa', 'info'); return; }
-                    if (e.ctrlKey && e.key === 'z') { e.preventDefault();
+                        this.log('🧹 Grade limpa! (Delete)', 'info');
+                        return;
+                    }
+
+                    // Ctrl+Z = Desfazer
+                    if (e.ctrlKey && e.key === 'z') {
+                        e.preventDefault();
                         this.grade.pop();
                         this.renderGrade();
-                        this.log('↩ Desfeito (Ctrl+Z)', 'info'); return; }
-                    const teclas = { '1': 'C', '2': 'G', '3': 'D', '4': 'A', '5': 'E', '6': 'F', 'q': 'Am', 'w': 'Em',
-                        'e': 'Dm', 'r': 'Cm', 't': 'G7' };
-                    if (teclas[e.key] && !e.ctrlKey && !e.metaKey) {
-                        this.selecionarAcorde(teclas[e.key]);
-                        this.addAcordeNaGrade(teclas[e.key]);
+                        this.log('↩ Último acorde removido (Ctrl+Z)', 'info');
+                        return;
+                    }
+
+                    // Teclas rápidas para acordes
+                    const teclasRapidas = {
+                        '1': 'C',
+                        '2': 'G',
+                        '3': 'D',
+                        '4': 'A',
+                        '5': 'E',
+                        '6': 'F',
+                        'q': 'Am',
+                        'w': 'Em',
+                        'e': 'Dm',
+                        'r': 'Cm',
+                        't': 'G7'
+                    };
+
+                    if (teclasRapidas[e.key] && !e.ctrlKey && !e.metaKey) {
+                        this.selecionarAcorde(teclasRapidas[e.key]);
+                        this.addAcordeNaGrade(teclasRapidas[e.key]);
+                    }
+                });
+
+                // Ctrl+V cola direto no campo de cifra
+                document.addEventListener('paste', (e) => {
+                    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+                    const texto = e.clipboardData.getData('text');
+                    if (texto && texto.length > 5 && texto.includes('\n')) {
+                        this.inputCifra.value = texto;
+                        this.log('📋 Cifra colada! Clique em "Converter para Grade" para ouvir.', 'cifraclub');
                     }
                 });
             }
 
-            configEngine() {
-                this.engine.onProgress = (pct, nota) => {
-                    this.modalProgressFill.style.width = pct + '%';
-                    this.modalStatus.textContent = `${pct}% - ${nota || ''}`;
-                };
-                this.engine.onReady = (ok) => {
-                    if (ok) {
-                        this.statusDot.classList.add('online');
-                        this.statusText.textContent = '✅ Pronto';
-                        this.modalUpload.classList.add('hidden');
-                        this.log('✅ Samples carregados! Pronto para compor.', 'ok');
-                    }
-                };
-            }
-
+            // ============================================================
+            // UPLOAD DE SAMPLES
+            // ============================================================
             async processUpload(e) {
                 const files = Array.from(e.target.files);
                 if (!files.length) return;
+
                 this.modalProgress.style.display = 'block';
-                this.log(`📂 ${files.length} arquivos recebidos`, 'info');
+                this.log(`📂 Processando ${files.length} arquivos...`, 'info');
+
+                // Agrupar por pasta
                 const porPasta = {};
                 files.forEach(f => {
                     const partes = f.webkitRelativePath.split('/');
                     const pasta = partes[0];
                     const nome = partes[partes.length - 1].replace(/\.[^.]+$/, '');
+
                     if (!porPasta[pasta]) porPasta[pasta] = [];
                     porPasta[pasta].push({ nome, file: f });
                 });
+
+                const totalPastas = Object.keys(porPasta).length;
+                this.log(`📁 ${totalPastas} pastas encontradas`, 'info');
+
                 await this.engine.init(porPasta);
             }
 
             // ============================================================
-            // PIANO ROLL
+            // PARSER DE CIFRA (Modo CifraClub)
+            // ============================================================
+            parseCifraClub(texto) {
+                if (!texto || !texto.trim()) {
+                    this.log('⚠️ Cole uma cifra primeiro no campo acima!', 'warn');
+                    return;
+                }
+
+                // Expressão regular para encontrar acordes
+                // Reconhece: C, C#, Db, Cm, C7, C7M, C9, Cdim, Csus2, Csus4, etc.
+                const regexAcorde = /\b[A-G][#b]?(?:m|7M|7|9|dim|sus[24]|add9|aug|m7|m7b5|º)?(?:_sertanejo)?\b/g;
+
+                const linhas = texto.split('\n');
+                const acordesEncontrados = [];
+
+                // Analisar cada linha
+                linhas.forEach(linha => {
+                    const matches = linha.match(regexAcorde);
+                    if (matches) {
+                        matches.forEach(m => {
+                            // Verificar se é um acorde válido no engine
+                            if (this.engine.acordes[m]) {
+                                acordesEncontrados.push(m);
+                            }
+                        });
+                    }
+                });
+
+                if (acordesEncontrados.length === 0) {
+                    this.log('⚠️ Nenhum acorde reconhecido na cifra!', 'warn');
+                    this.log('💡 Formatos aceitos: C, Am, G7, F#m, C7M, Bb, C_sertanejo', 'info');
+                    return;
+                }
+
+                // Construir grade
+                this.grade = [];
+                let tempoAtual = 0;
+
+                acordesEncontrados.forEach(acorde => {
+                    this.grade.push({
+                        acorde: acorde,
+                        tempo: tempoAtual,
+                        duracao: this.compasso
+                    });
+                    tempoAtual += this.compasso;
+                });
+
+                this.renderGrade();
+
+                this.log(`✅ ${acordesEncontrados.length} acordes convertidos para a grade!`, 'ok');
+                this.log(`📋 Sequência: ${acordesEncontrados.join(' → ')}`, 'cifraclub');
+
+                // Tocar automaticamente se o engine estiver pronto
+                if (this.engine.estaPronto()) {
+                    setTimeout(() => this.tocar(), 500);
+                } else {
+                    this.log('⚠️ Carregue os samples primeiro (botão "📁 Carregar Samples")', 'warn');
+                }
+            }
+
+            // ============================================================
+            // CONSTRUÇÃO DO PIANO ROLL
             // ============================================================
             buildPiano() {
+                // Construir teclas do piano
                 this.pianoKeys.innerHTML = '';
                 this.notasViolao.forEach(nota => {
                     const key = document.createElement('div');
-                    key.className = `piano-key ${nota.includes('#')?'black':'white'}`;
+                    key.className = `piano-key ${nota.includes('#') ? 'black' : 'white'}`;
                     key.textContent = nota;
                     key.dataset.nota = nota;
                     key.addEventListener('click', () => this.previewNota(nota));
                     this.pianoKeys.appendChild(key);
                 });
 
+                // Construir linhas da grade
                 this.acordesGrade.innerHTML = '';
                 this.notasViolao.forEach(nota => {
                     const linha = document.createElement('div');
-                    linha.className = `grade-linha ${nota.includes('#')?'black':''}`;
+                    linha.className = `grade-linha ${nota.includes('#') ? 'black' : ''}`;
                     linha.dataset.nota = nota;
                     this.acordesGrade.appendChild(linha);
                 });
 
+                // Referência ao cursor de playback
                 this.cursorPlay = document.getElementById('cursorPlay');
                 if (!this.acordesGrade.contains(this.cursorPlay)) {
                     this.acordesGrade.appendChild(this.cursorPlay);
@@ -804,13 +1638,16 @@
             }
 
             renderGrade() {
+                // Remover blocos existentes
                 this.acordesGrade.querySelectorAll('.bloco-acorde').forEach(b => b.remove());
-                const PX_BATIDA = 80;
+
+                const PX_POR_BATIDA = 80;
 
                 this.grade.forEach((item, i) => {
                     const posicao = this.engine.acordes[item.acorde];
                     if (!posicao) return;
 
+                    // Encontrar a nota mais grave do acorde para posicionar
                     let notaGrave = null;
                     for (let ci = 0; ci < posicao.length; ci++) {
                         if (posicao[ci] >= 0) {
@@ -820,6 +1657,7 @@
                     }
                     if (!notaGrave) return;
 
+                    // Calcular posição Y baseada na nota
                     const idxNota = this.notasViolao.indexOf(notaGrave);
                     if (idxNota < 0) return;
 
@@ -828,44 +1666,69 @@
                         y += this.notasViolao[ni].includes('#') ? 17 : 26;
                     }
 
-                    const x = (item.tempo / 4) * PX_BATIDA * 4;
-                    const w = Math.max((item.duracao / 4) * PX_BATIDA * 4, 45);
+                    // Calcular posição X baseada no tempo
+                    const x = (item.tempo / 4) * PX_POR_BATIDA * 4;
+                    const largura = Math.max((item.duracao / 4) * PX_POR_BATIDA * 4, 50);
 
+                    // Criar bloco visual
                     const bloco = document.createElement('div');
                     bloco.className = 'bloco-acorde';
                     bloco.style.left = x + 'px';
                     bloco.style.top = y + 'px';
-                    bloco.style.width = w + 'px';
+                    bloco.style.width = largura + 'px';
                     bloco.textContent = item.acorde;
-                    bloco.title = `${item.acorde} | Tempo: ${item.tempo}`;
+                    bloco.title = `${item.acorde} | Tempo: ${item.tempo} | Duração: ${item.duracao}`;
                     bloco.dataset.index = i;
+
+                    // Eventos
                     bloco.addEventListener('click', () => this.selecionarAcorde(item.acorde));
                     bloco.addEventListener('dblclick', () => {
                         this.grade.splice(i, 1);
                         this.renderGrade();
+                        this.log(`🗑️ ${item.acorde} removido da grade`, 'info');
                     });
+
                     this.acordesGrade.appendChild(bloco);
                 });
             }
 
             addAcordeNaGrade(acorde) {
-                const ultimo = this.grade.length > 0 ?
+                const ultimoTempo = this.grade.length > 0 ?
                     this.grade[this.grade.length - 1].tempo + this.grade[this.grade.length - 1].duracao :
                     0;
-                this.grade.push({ acorde, tempo: ultimo, duracao: this.compasso });
+
+                this.grade.push({
+                    acorde: acorde,
+                    tempo: ultimoTempo,
+                    duracao: this.compasso
+                });
+
                 this.renderGrade();
+                this.log(`➕ ${acorde} adicionado à grade (tempo: ${ultimoTempo})`, 'ok');
             }
 
             // ============================================================
-            // PLAYBACK
+            // REPRODUÇÃO
             // ============================================================
-            togglePlay() { if (this.tocando) { this.parar(); } else { this.tocar(); } }
+            togglePlay() {
+                if (this.tocando) {
+                    this.parar();
+                } else {
+                    this.tocar();
+                }
+            }
 
             tocar() {
-                if (!this.engine.estaPronto() || !this.grade.length) {
-                    this.log('⚠️ Adicione acordes à grade!', 'warn');
+                if (!this.engine.estaPronto()) {
+                    this.log('⚠️ Carregue os samples primeiro! (botão "📁 Carregar Samples")', 'warn');
                     return;
                 }
+
+                if (!this.grade.length) {
+                    this.log('⚠️ Adicione acordes à grade primeiro!', 'warn');
+                    return;
+                }
+
                 this.engine.resumeContext();
                 this.tocando = true;
                 document.getElementById('btnPlay').textContent = '⏸';
@@ -878,28 +1741,53 @@
                 this.tocando = false;
                 document.getElementById('btnPlay').textContent = '▶';
                 this.cursorPlay.style.display = 'none';
-                if (this.timer) clearTimeout(this.timer);
+
+                if (this.timer) {
+                    clearTimeout(this.timer);
+                    this.timer = null;
+                }
+
+                // Esconder karaokê
+                if (this._karaokeEl) {
+                    this._karaokeEl.style.opacity = '0';
+                }
+
+                // Limpar destaques
+                this.acordesGrade.querySelectorAll('.bloco-acorde').forEach(b => {
+                    b.classList.remove('ativo');
+                    b.style.transform = '';
+                    b.style.boxShadow = '';
+                    b.style.zIndex = '';
+                });
             }
 
             step() {
                 if (!this.tocando) return;
 
-                const agora = this.grade.filter(item =>
-                    item.tempo <= this.cursorPos && item.tempo + item.duracao > this.cursorPos
+                // Encontrar acordes no tempo atual
+                const acordesAgora = this.grade.filter(item =>
+                    item.tempo <= this.cursorPos &&
+                    item.tempo + item.duracao > this.cursorPos
                 );
 
-                this.acordesGrade.querySelectorAll('.bloco-acorde').forEach(b => b.classList.remove('ativo'));
-
-                agora.forEach(item => {
+                // Tocar acordes atuais
+                acordesAgora.forEach(item => {
                     this.engine.tocarAcorde(item.acorde, 0.7, this.modo);
-                    const blocos = this.acordesGrade.querySelectorAll('.bloco-acorde');
-                    blocos.forEach(b => {
-                        if (b.textContent === item.acorde && parseInt(b.dataset.index) === this.grade.indexOf(
-                                item)) {
-                            b.classList.add('ativo');
-                        }
-                    });
 
+                    // Destacar bloco na grade
+                    const idx = this.grade.indexOf(item);
+                    const bloco = this.acordesGrade.querySelector(`[data-index="${idx}"]`);
+                    if (bloco) {
+                        bloco.classList.add('ativo');
+                        bloco.style.transform = 'scale(1.08)';
+                        bloco.style.boxShadow = '0 0 20px var(--accent2)';
+                        bloco.style.zIndex = '5';
+                    }
+
+                    // Mostrar acorde no karaokê
+                    this.mostrarAcordeKaraoke(item.acorde);
+
+                    // Destacar notas no piano
                     const posicao = this.engine.acordes[item.acorde];
                     if (posicao) {
                         this.engine.cordas.forEach((corda, i) => {
@@ -911,18 +1799,53 @@
                     }
                 });
 
-                const totalTempo = this.grade.reduce((max, item) => Math.max(max, item.tempo + item.duracao), 0);
-                const PX_BATIDA = 80;
-                this.cursorPlay.style.left = (this.cursorPos / 4) * PX_BATIDA * 4 + 'px';
+                // Calcular tempo total da grade
+                const tempoTotal = this.grade.reduce((max, item) =>
+                    Math.max(max, item.tempo + item.duracao), 0
+                );
+
+                // Atualizar cursor
+                const PX_POR_BATIDA = 80;
+                this.cursorPlay.style.left = (this.cursorPos / 4) * PX_POR_BATIDA * 4 + 'px';
+
+                // Avançar cursor
                 this.cursorPos += 0.5;
 
-                if (this.cursorPos >= totalTempo) {
-                    if (this.loop) { this.cursorPos = 0; } else { this.parar(); return; }
+                // Verificar fim
+                if (this.cursorPos >= tempoTotal) {
+                    if (this.loop) {
+                        this.cursorPos = 0;
+                    } else {
+                        this.parar();
+                        return;
+                    }
                 }
 
-                this.timer = setTimeout(() => this.step(), (60 / this.bpm) * 500);
+                // Agendar próximo passo
+                const intervaloMs = (60 / this.bpm) * 500; // meia batida
+                this.timer = setTimeout(() => this.step(), intervaloMs);
             }
 
+            /**
+             * Mostra o acorde gigante no centro da tela (karaokê)
+             */
+            mostrarAcordeKaraoke(acorde) {
+                if (!this._karaokeEl) return;
+
+                this._karaokeEl.textContent = acorde;
+                this._karaokeEl.style.opacity = '1';
+
+                clearTimeout(this._karaokeTimer);
+                this._karaokeTimer = setTimeout(() => {
+                    if (this._karaokeEl) {
+                        this._karaokeEl.style.opacity = '0';
+                    }
+                }, 700);
+            }
+
+            /**
+             * Destaca uma tecla do piano
+             */
             highlightPianoKey(nota) {
                 const key = this.pianoKeys.querySelector(`[data-nota="${nota}"]`);
                 if (key) {
@@ -932,37 +1855,44 @@
             }
 
             // ============================================================
-            // BIBLIOTECA + MINI-BRAÇO
+            // BIBLIOTECA DE ACORDES
             // ============================================================
             buildCategorias() {
-                const cats = {
-                    '🎵 Maiores': 'C C# D D# E F F# G G# A A# B'.split(' '),
-                    '🌙 Menores': 'Cm C#m Dm D#m Em Fm F#m Gm G#m Am A#m Bm'.split(' '),
-                    '7️⃣ Sétima': 'C7 D7 E7 F7 G7 A7 B7'.split(' '),
-                    '✨ 7ª Maior': 'C7M D7M E7M F7M G7M A7M B7M'.split(' '),
-                    '🌧️ Menor 7ª': 'Cm7 Dm7 Em7 Fm7 Gm7 Am7 Bm7'.split(' '),
-                    '🎪 Suspensos': 'Csus2 Dsus2 Esus2 Csus4 Dsus4 Esus4 Gsus4 Asus4'.split(' '),
-                    '💀 Diminutos': 'Cdim Ddim Edim Fdim Gdim Adim Bdim'.split(' '),
-                    '🤠 Sertanejos': 'C_sertanejo G_sertanejo D_sertanejo A_sertanejo C9 D9 G9 Cadd9 Gadd9'.split(' '),
+                const categorias = {
+                    '🎵 Maiores': ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'],
+                    '🌙 Menores': ['Cm', 'C#m', 'Dm', 'D#m', 'Em', 'Fm', 'F#m', 'Gm', 'G#m', 'Am', 'A#m', 'Bm'],
+                    '7️⃣ Com Sétima': ['C7', 'D7', 'E7', 'F7', 'G7', 'A7', 'B7'],
+                    '✨ 7ª Maior': ['C7M', 'D7M', 'E7M', 'F7M', 'G7M', 'A7M', 'B7M'],
+                    '🎪 Suspensos': ['Csus2', 'Dsus2', 'Esus2', 'Csus4', 'Dsus4', 'Esus4', 'Gsus4', 'Asus4'],
+                    '💀 Diminutos': ['Cdim', 'Ddim', 'Edim', 'Fdim', 'Gdim', 'Adim', 'Bdim'],
+                    '🎸 Nonas': ['C9', 'D9', 'G9', 'A9', 'Cadd9', 'Gadd9'],
+                    '🤠 Sertanejos': ['C_sertanejo', 'G_sertanejo', 'D_sertanejo', 'A_sertanejo']
                 };
 
                 this.categoriasContainer.innerHTML = '';
 
-                Object.entries(cats).forEach(([nome, acordes]) => {
+                Object.entries(categorias).forEach(([nomeCategoria, acordes]) => {
+                    // Título da categoria
                     const catNome = document.createElement('div');
                     catNome.className = 'cat-nome aberto';
-                    catNome.textContent = nome;
-                    catNome.addEventListener('click', () => catNome.classList.toggle('aberto'));
+                    catNome.textContent = nomeCategoria;
+                    catNome.addEventListener('click', () => {
+                        catNome.classList.toggle('aberto');
+                    });
 
+                    // Grid de acordes
                     const grid = document.createElement('div');
                     grid.className = 'cat-grid';
 
-                    acordes.forEach(ac => {
+                    acordes.forEach(acorde => {
                         const chip = document.createElement('div');
                         chip.className = 'acorde-chip';
-                        chip.textContent = ac;
-                        chip.addEventListener('click', () => this.selecionarAcorde(ac));
-                        chip.addEventListener('dblclick', () => this.addAcordeNaGrade(ac));
+                        chip.textContent = acorde;
+                        chip.title = `Clique: selecionar | Duplo-clique: adicionar à grade`;
+
+                        chip.addEventListener('click', () => this.selecionarAcorde(acorde));
+                        chip.addEventListener('dblclick', () => this.addAcordeNaGrade(acorde));
+
                         grid.appendChild(chip);
                     });
 
@@ -971,26 +1901,43 @@
                 });
             }
 
-            selecionarAcorde(ac) {
-                this.acordeSel = ac;
+            /**
+             * Seleciona um acorde (atualiza mini-braço e destaques)
+             */
+            selecionarAcorde(acorde) {
+                this.acordeSel = acorde;
+
+                // Atualizar chips
                 document.querySelectorAll('.acorde-chip.selecionado').forEach(c => c.classList.remove('selecionado'));
                 document.querySelectorAll('.acorde-chip.sugestao').forEach(c => c.classList.remove('sugestao'));
+
                 this.categoriasContainer.querySelectorAll('.acorde-chip').forEach(chip => {
-                    if (chip.textContent === ac) chip.classList.add('selecionado');
+                    if (chip.textContent === acorde) {
+                        chip.classList.add('selecionado');
+                    }
                 });
 
-                // 🆕 Mostrar mini-braço CifraClub
-                const posicao = this.engine.acordes[ac];
+                // Atualizar mini-braço
+                const posicao = this.engine.acordes[acorde];
                 if (posicao) {
-                    this.miniBraco.desenhar(ac, posicao);
+                    this.miniBraco.desenhar(acorde, posicao);
                     this.bracoFloat.classList.add('visivel');
                 } else {
                     this.bracoFloat.classList.remove('visivel');
                 }
+
+                this.log(`🎸 Acorde selecionado: ${acorde}`, 'info');
             }
 
+            /**
+             * Sugere próximos acordes baseado em harmonia funcional
+             */
             sugerirProximoAcorde() {
-                if (!this.acordeSel) { this.log('⚠️ Selecione um acorde primeiro', 'warn'); return; }
+                if (!this.acordeSel) {
+                    this.log('⚠️ Selecione um acorde primeiro!', 'warn');
+                    return;
+                }
+
                 const sugestoes = {
                     'C': ['G', 'Am', 'F', 'Dm', 'Em'],
                     'G': ['C', 'D', 'Em', 'Am', 'Bm'],
@@ -1001,30 +1948,59 @@
                     'Am': ['Dm', 'G', 'F', 'E7', 'C'],
                     'Em': ['Am', 'D', 'C', 'B7', 'G'],
                     'Dm': ['Gm', 'C', 'Bb', 'A7', 'F'],
+                    'C7': ['F', 'Gm', 'Am', 'Dm'],
+                    'G7': ['C', 'Dm', 'Em', 'Am'],
+                    'D7': ['G', 'Am', 'Bm', 'Em']
                 };
+
                 const sugs = sugestoes[this.acordeSel] || Object.keys(this.engine.acordes).slice(0, 6);
+
                 this.log(`💡 Sugestões para ${this.acordeSel}: ${sugs.join(', ')}`, 'info');
+
+                // Destacar sugestões
                 document.querySelectorAll('.acorde-chip').forEach(chip => {
-                    if (sugs.includes(chip.textContent)) chip.classList.add('sugestao');
+                    if (sugs.includes(chip.textContent)) {
+                        chip.classList.add('sugestao');
+                    }
                 });
             }
 
+            /**
+             * Aplica um ritmo sertanejo característico ao acorde selecionado
+             */
             aplicarRitmoSertanejo() {
-                if (!this.acordeSel) { this.log('⚠️ Selecione um acorde!', 'warn'); return; }
+                if (!this.acordeSel) {
+                    this.log('⚠️ Selecione um acorde primeiro!', 'warn');
+                    return;
+                }
+
+                // Padrão rítmico sertanejo: | 1  .  2  . | 3  e  4  . |
                 const ritmo = [
-                    { tempo: 0, duracao: 1.5 }, { tempo: 2, duracao: 1.5 },
-                    { tempo: 4, duracao: 1 }, { tempo: 5, duracao: 1 }, { tempo: 6, duracao: 1.5 },
+                    { tempo: 0, duracao: 1.5 },
+                    { tempo: 2, duracao: 1.5 },
+                    { tempo: 4, duracao: 1 },
+                    { tempo: 5, duracao: 1 },
+                    { tempo: 6, duracao: 1.5 }
                 ];
+
                 const inicio = this.grade.length > 0 ?
-                    this.grade[this.grade.length - 1].tempo + this.grade[this.grade.length - 1].duracao : 0;
-                ritmo.forEach(r => { this.grade.push({ acorde: this.acordeSel, tempo: inicio + r.tempo, duracao: r
-                        .duracao }); });
+                    this.grade[this.grade.length - 1].tempo + this.grade[this.grade.length - 1].duracao :
+                    0;
+
+                ritmo.forEach(r => {
+                    this.grade.push({
+                        acorde: this.acordeSel,
+                        tempo: inicio + r.tempo,
+                        duracao: r.duracao
+                    });
+                });
+
                 this.renderGrade();
-                this.log(`🤠 Ritmo sertanejo aplicado com ${this.acordeSel}`, 'ok');
+                this.log(`🤠 Ritmo sertanejo aplicado com "${this.acordeSel}"!`, 'ok');
             }
 
             // ============================================================
-            // EDITOR CUSTOM
+            // EDITOR DE ACORDE PERSONALIZADO
             // ============================================================
             buildEditor() {
                 this.cordasEditor.innerHTML = '';
@@ -1033,16 +2009,20 @@
                 this.engine.cordas.forEach((corda, i) => {
                     const row = document.createElement('div');
                     row.className = 'corda-row';
+
                     const label = document.createElement('span');
+                    label.className = 'corda-label';
                     label.textContent = nomesCordas[i];
+
                     const input = document.createElement('input');
                     input.type = 'number';
                     input.min = -1;
                     input.max = 12;
                     input.value = 0;
                     input.dataset.idx = i;
+
                     const preview = document.createElement('span');
-                    preview.className = 'preview';
+                    preview.className = 'nota-preview';
                     preview.textContent = this.engine.cordaNotas[corda][0];
 
                     input.addEventListener('input', () => {
@@ -1051,7 +2031,9 @@
                         if (v > 12) v = 12;
                         if (v < -1) v = -1;
                         input.value = v;
-                        preview.textContent = v >= 0 ? this.engine.cordaNotas[corda][Math.min(v, 12)] : '🔇';
+                        preview.textContent = v >= 0 ?
+                            this.engine.cordaNotas[corda][Math.min(v, 12)] :
+                            '🔇';
                     });
 
                     row.appendChild(label);
@@ -1060,14 +2042,17 @@
                     this.cordasEditor.appendChild(row);
                 });
 
+                // Botão Testar
                 document.getElementById('btnTestarCustom').addEventListener('click', () => {
                     const pos = this.getCustomPos();
                     const nomeTemp = '__t_' + Date.now();
                     this.engine.acordes[nomeTemp] = pos;
                     this.engine.tocarAcorde(nomeTemp, 0.7, this.modo);
                     setTimeout(() => delete this.engine.acordes[nomeTemp], 3000);
+                    this.log('🎸 Testando acorde personalizado...', 'info');
                 });
 
+                // Botão Salvar
                 document.getElementById('btnSalvarCustom').addEventListener('click', () => this.saveCustom());
             }
 
@@ -1078,102 +2063,163 @@
 
             saveCustom() {
                 const nome = document.getElementById('inputNomeCustom').value.trim();
-                if (!nome) return this.log('⚠️ Dê um nome!', 'warn');
+                if (!nome) {
+                    this.log('⚠️ Dê um nome ao acorde!', 'warn');
+                    return;
+                }
+
                 const pos = this.getCustomPos();
+                const temNota = pos.some(t => t >= 0);
+                if (!temNota) {
+                    this.log('⚠️ Selecione pelo menos uma corda!', 'warn');
+                    return;
+                }
+
                 this.customAcordes[nome] = pos;
                 this.engine.acordes[nome] = pos;
                 localStorage.setItem('violao_custom_acordes', JSON.stringify(this.customAcordes));
                 this.renderTags();
-                this.log(`✅ Acorde "${nome}" salvo!`, 'ok');
+                this.log(`✅ Acorde personalizado "${nome}" salvo!`, 'ok');
             }
 
             loadCustomAcordes() {
                 try {
-                    const d = localStorage.getItem('violao_custom_acordes');
-                    if (d) {
-                        this.customAcordes = JSON.parse(d);
-                        Object.entries(this.customAcordes).forEach(([n, p]) => this.engine.acordes[n] = p);
+                    const dados = localStorage.getItem('violao_custom_acordes');
+                    if (dados) {
+                        this.customAcordes = JSON.parse(dados);
+                        Object.entries(this.customAcordes).forEach(([nome, pos]) => {
+                            this.engine.acordes[nome] = pos;
+                        });
                     }
-                } catch (e) { this.customAcordes = {}; }
+                } catch (e) {
+                    this.customAcordes = {};
+                }
                 this.renderTags();
             }
 
             renderTags() {
                 const nomes = Object.keys(this.customAcordes);
-                this.tagsCustom.innerHTML = nomes.length ?
-                    nomes.map(n =>
-                        `<span class="acorde-chip custom" onclick="window.app.selecionarAcorde('${n}')">${n}</span>`)
-                    .join('') :
-                    '<span style="font-size:9px;color:var(--text2);">Nenhum salvo</span>';
+                if (nomes.length === 0) {
+                    this.tagsCustom.innerHTML =
+                        '<span style="font-size:10px;color:var(--text2);">Nenhum acorde salvo ainda</span>';
+                    return;
+                }
+
+                this.tagsCustom.innerHTML = nomes.map(nome => `
+                    <span class="acorde-chip custom" 
+                          onclick="window.app.selecionarAcorde('${nome}')"
+                          title="Acorde personalizado: ${nome}">
+                        ${nome}
+                    </span>
+                `).join('');
             }
 
             // ============================================================
             // EXPORTAÇÃO
             // ============================================================
             exportarCifra() {
-                if (!this.grade.length) return this.log('⚠️ Grade vazia!', 'warn');
-                let txt = `🎸 Violão Compositor Sertanejo\n`;
-                txt += `Data: ${new Date().toLocaleDateString()}\n`;
+                if (!this.grade.length) {
+                    this.log('⚠️ Grade vazia! Adicione acordes primeiro.', 'warn');
+                    return;
+                }
+
+                let txt = `🎸 Violão Compositor Sertanejo Pro\n`;
+                txt += `Data: ${new Date().toLocaleDateString('pt-BR')}\n`;
                 txt += `BPM: ${this.bpm} | Compasso: ${this.compasso}/4\n`;
-                txt += '='.repeat(45) + '\n\n';
+                txt += `Modo: ${this.modo}\n`;
+                txt += '='.repeat(50) + '\n\n';
+
+                // Agrupar por compasso
                 const porCompasso = [];
                 for (let i = 0; i < this.grade.length; i += this.compasso) {
                     porCompasso.push(this.grade.slice(i, i + this.compasso));
                 }
+
                 porCompasso.forEach(comp => {
-                    txt += '| ' + comp.map(c => c.acorde.padEnd(6)).join('| ') + '|\n';
+                    txt += '| ' + comp.map(c => c.acorde.padEnd(8)).join('| ') + '|\n';
                 });
-                txt += '\n' + '='.repeat(45) + '\n';
+
+                txt += '\n' + '='.repeat(50) + '\n';
                 txt += `Total: ${this.grade.length} acordes em ${porCompasso.length} compassos\n`;
 
-                const blob = new Blob([txt], { type: 'text/plain' });
+                // Download automático
+                const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `progressao_${Date.now()}.txt`;
+                a.download = `cifra_${Date.now()}.txt`;
                 a.click();
                 URL.revokeObjectURL(url);
 
+                // Mostrar no modal
                 this.cifraConteudo.textContent = txt;
                 this.modalExport.classList.remove('hidden');
-                this.log('📝 Cifra exportada e baixada!', 'ok');
+                this.log('📝 Cifra exportada e download iniciado!', 'ok');
             }
 
             copiarProgressao() {
-                if (!this.grade.length) return this.log('⚠️ Grade vazia!', 'warn');
-                const txt = this.grade.map(item => item.acorde).join(' ');
-                navigator.clipboard.writeText(txt).then(() => {
-                    this.log('📋 Progressão copiada!', 'ok');
+                if (!this.grade.length) {
+                    this.log('⚠️ Grade vazia!', 'warn');
+                    return;
+                }
+
+                const texto = this.grade.map(item => item.acorde).join(' ');
+
+                navigator.clipboard.writeText(texto).then(() => {
+                    this.log('📋 Progressão copiada para a área de transferência!', 'ok');
                 }).catch(() => {
-                    this.log('❌ Erro ao copiar', 'erro');
+                    // Fallback para navegadores antigos
+                    const textarea = document.createElement('textarea');
+                    textarea.value = texto;
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    this.log('📋 Progressão copiada!', 'ok');
                 });
             }
 
             salvarProjeto() {
                 const nome = prompt('Nome do projeto:');
                 if (!nome) return;
+
                 const projetos = JSON.parse(localStorage.getItem('violao_projetos') || '{}');
-                projetos[nome] = { grade: this.grade, bpm: this.bpm, compasso: this.compasso, modo: this.modo };
+                projetos[nome] = {
+                    grade: this.grade,
+                    bpm: this.bpm,
+                    compasso: this.compasso,
+                    modo: this.modo
+                };
                 localStorage.setItem('violao_projetos', JSON.stringify(projetos));
-                this.log(`💾 Projeto "${nome}" salvo!`, 'ok');
+                this.log(`💾 Projeto "${nome}" salvo com sucesso!`, 'ok');
             }
 
             carregarProjeto() {
                 const projetos = JSON.parse(localStorage.getItem('violao_projetos') || '{}');
                 const nomes = Object.keys(projetos);
-                if (!nomes.length) return this.log('⚠️ Nenhum projeto salvo', 'warn');
-                const nome = prompt('Projetos salvos:\n\n' + nomes.join('\n') + '\n\nDigite o nome:');
+
+                if (!nomes.length) {
+                    this.log('⚠️ Nenhum projeto salvo encontrado.', 'warn');
+                    return;
+                }
+
+                const lista = nomes.map((n, i) => `${i + 1}. ${n}`).join('\n');
+                const nome = prompt('Projetos salvos:\n\n' + lista + '\n\nDigite o nome do projeto:');
+
                 if (!nome || !projetos[nome]) return;
+
                 const p = projetos[nome];
                 this.grade = p.grade;
                 this.bpm = p.bpm || 90;
                 this.compasso = p.compasso || 4;
                 this.modo = p.modo || 'batida_sertanejo';
+
                 document.getElementById('bpmInput').value = this.bpm;
                 document.getElementById('compassoSelect').value = this.compasso;
                 document.getElementById('modoSelect').value = this.modo;
+
                 this.renderGrade();
-                this.log(`📂 Projeto "${nome}" carregado!`, 'ok');
+                this.log(`📂 Projeto "${nome}" carregado! (${this.grade.length} acordes)`, 'ok');
             }
 
             // ============================================================
@@ -1181,7 +2227,9 @@
             // ============================================================
             previewNota(nota) {
                 if (!this.engine.estaPronto()) return;
+
                 this.engine.resumeContext();
+
                 for (const [corda, notas] of Object.entries(this.engine.cordaNotas)) {
                     const idx = notas.indexOf(nota);
                     if (idx >= 0) {
@@ -1193,26 +2241,39 @@
             }
 
             log(msg, tipo = 'info') {
-                const time = new Date().toLocaleTimeString();
-                this.consoleEl.innerHTML += `\n<span class="${tipo}">[${time}] ${msg}</span>`;
+                const time = new Date().toLocaleTimeString('pt-BR');
+                const entry = document.createElement('span');
+                entry.className = tipo;
+                entry.textContent = `[${time}] ${msg}`;
+
+                this.consoleEl.appendChild(document.createTextNode('\n'));
+                this.consoleEl.appendChild(entry);
                 this.consoleEl.scrollTop = this.consoleEl.scrollHeight;
-                const linhas = this.consoleEl.innerHTML.split('\n');
-                if (linhas.length > 80) {
-                    this.consoleEl.innerHTML = linhas.slice(linhas.length - 80).join('\n');
+
+                // Limitar linhas do console
+                const linhas = this.consoleEl.querySelectorAll('span');
+                if (linhas.length > 100) {
+                    linhas[0].remove();
                 }
             }
         }
 
         // ============================================================
-        // INICIALIZAR
+        // INICIALIZAÇÃO DO APLICATIVO
         // ============================================================
         document.addEventListener('DOMContentLoaded', () => {
             window.app = new CompositorApp();
-            window.app.log('🎸 Violão Compositor Sertanejo Pro v2.2.0', 'ok');
-            window.app.log('🆕 Mini-braço CifraClub integrado!', 'ok');
-            window.app.log('📂 Clique "Samples" para carregar o dataset', 'info');
-            window.app.log('💡 Clique nos acordes | Duplo-clique add à grade', 'info');
-            window.app.log('⌨️ Espaço=Play | 1-6,Q-T=Acordes | Del=Limpar | Ctrl+Z=Desfazer', 'info');
+
+            window.app.log('🎸 Violão Compositor Sertanejo Pro v2.3.0', 'ok');
+            window.app.log('─'.repeat(40), 'info');
+            window.app.log('🆕 NOVO: Modo CifraClub - Cole cifras e ouça!', 'cifraclub');
+            window.app.log('🆕 NOVO: Karaokê - Acorde gigante na tela!', 'ok');
+            window.app.log('🆕 NOVO: Mini-Braço CifraClub integrado', 'ok');
+            window.app.log('─'.repeat(40), 'info');
+            window.app.log('📂 Para começar: Clique em "📁 Carregar Samples"', 'info');
+            window.app.log('📝 Ou cole uma cifra no campo "Modo CifraClub"', 'cifraclub');
+            window.app.log('⌨️ Atalhos: Espaço=Play | 1-6=Acordes | Delete=Limpar | Ctrl+Z=Desfazer', 'info');
+            window.app.log('─'.repeat(40), 'info');
         });
     </script>
 </body>
