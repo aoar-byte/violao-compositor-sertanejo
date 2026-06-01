@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎸 Violão Compositor Sertanejo Pro v2.3.0</title>
     
-    <!-- ============================================================ -->
-    <!-- ESTILOS COMPLETOS -->
-    <!-- ============================================================ -->
     <style>
         /* ==================== VARIÁVEIS DE COR ==================== */
         :root {
@@ -25,7 +22,6 @@
             --cifraclub: #8e44ad;
         }
 
-        /* ==================== RESET GLOBAL ==================== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
@@ -39,7 +35,6 @@
             user-select: none;
         }
 
-        /* ==================== HEADER ==================== */
         .header {
             background: var(--panel);
             border-bottom: 2px solid var(--border);
@@ -81,14 +76,12 @@
         }
         .status-dot.online { background: var(--accent2); }
 
-        /* ==================== LAYOUT PRINCIPAL ==================== */
         .main-layout {
             display: flex;
             flex: 1;
             overflow: hidden;
         }
 
-        /* ==================== PAINEL ESQUERDO ==================== */
         .panel-esquerdo {
             width: 300px;
             min-width: 300px;
@@ -110,7 +103,6 @@
             margin-bottom: 4px;
         }
 
-        /* ==================== MODO CIFRACLUB ==================== */
         .cifraclub-section {
             padding: 10px 14px;
             border-bottom: 1px solid var(--border);
@@ -150,7 +142,6 @@
         }
         .dica-texto strong { color: var(--cifraclub); }
 
-        /* ==================== CATEGORIAS DE ACORDES ==================== */
         .cat-nome {
             font-size: 12px;
             font-weight: 700;
@@ -227,7 +218,6 @@
             50% { box-shadow: 0 0 16px rgba(243, 156, 18, 0.6); }
         }
 
-        /* ==================== EDITOR DE ACORDE CUSTOM ==================== */
         .editor-custom {
             padding: 10px 14px;
         }
@@ -288,7 +278,6 @@
             min-width: 28px;
         }
 
-        /* ==================== TOOLBAR ==================== */
         .toolbar {
             display: flex;
             align-items: center;
@@ -390,7 +379,6 @@
             margin: 0 4px;
         }
 
-        /* ==================== PIANO ROLL ==================== */
         .piano-container {
             flex: 1;
             display: flex;
@@ -501,7 +489,6 @@
             box-shadow: 0 0 10px var(--accent2);
         }
 
-        /* ==================== KARAOKÊ ==================== */
         .karaoke-acorde {
             position: fixed;
             top: 50%;
@@ -522,7 +509,6 @@
             letter-spacing: 2px;
         }
 
-        /* ==================== CONSOLE ==================== */
         .console {
             height: 110px;
             background: #050510;
@@ -540,7 +526,6 @@
         .console .info { color: #3498db; }
         .console .cifraclub { color: #8e44ad; font-weight: 700; }
 
-        /* ==================== MINI-BRAÇO ==================== */
         #bracoFloat {
             position: fixed;
             bottom: 125px;
@@ -557,7 +542,6 @@
             opacity: 1;
         }
 
-        /* ==================== MODAIS ==================== */
         .modal {
             position: fixed;
             top: 0;
@@ -606,7 +590,6 @@
             border-radius: 4px;
         }
 
-        /* ==================== RESPONSIVO ==================== */
         @media (max-width: 768px) {
             .panel-esquerdo { width: 100%; min-width: 100%; }
             .main-layout { flex-direction: column; }
@@ -618,9 +601,6 @@
 </head>
 <body>
 
-    <!-- ============================================================ -->
-    <!-- HEADER -->
-    <!-- ============================================================ -->
     <div class="header">
         <div class="logo">
             🎸 Violão <span>Compositor</span> Sertanejo
@@ -632,15 +612,8 @@
         </div>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- LAYOUT PRINCIPAL -->
-    <!-- ============================================================ -->
     <div class="main-layout">
-
-        <!-- ==================== PAINEL ESQUERDO ==================== -->
         <div class="panel-esquerdo">
-
-            <!-- MODO CIFRACLUB -->
             <div class="panel-titulo">📝 Modo CifraClub</div>
             <div class="cifraclub-section">
                 <textarea id="inputCifra" placeholder="Cole sua cifra aqui...
@@ -660,18 +633,15 @@ E sentir o teu calor..."></textarea>
                 </div>
             </div>
 
-            <!-- BIBLIOTECA DE ACORDES -->
             <div class="panel-titulo">📚 Biblioteca de Acordes</div>
             <div id="categoriasContainer"></div>
 
-            <!-- FERRAMENTAS -->
             <div class="panel-titulo">💡 Ferramentas Rápidas</div>
             <div style="padding: 8px 12px; display: flex; flex-direction: column; gap: 6px;">
                 <button class="btn" id="btnSugerir" style="width:100%;">🔍 Sugerir Próximo Acorde</button>
                 <button class="btn" id="btnRitmoSertanejo" style="width:100%;">🎵 Aplicar Ritmo Sertanejo</button>
             </div>
 
-            <!-- EDITOR DE ACORDE CUSTOM -->
             <div class="panel-titulo">✏️ Editor de Acorde Personalizado</div>
             <div class="editor-custom">
                 <input type="text" id="inputNomeCustom" placeholder="Nome do acorde" value="MeuAcorde">
@@ -684,9 +654,7 @@ E sentir o teu calor..."></textarea>
             </div>
         </div>
 
-        <!-- ==================== PIANO ROLL ==================== -->
         <div class="piano-container">
-            <!-- TOOLBAR -->
             <div class="toolbar">
                 <button class="btn play" id="btnPlay" title="Play / Pause (Espaço)">▶</button>
                 <button class="btn stop" id="btnStop" title="Parar">■</button>
@@ -726,7 +694,6 @@ E sentir o teu calor..."></textarea>
                 <button class="btn" id="btnLimpar" style="color:var(--danger);">🗑️ Limpar Grade</button>
             </div>
 
-            <!-- PIANO ROLL GRID -->
             <div class="piano-grid" id="pianoGrid">
                 <div class="piano-inner">
                     <div class="piano-keys" id="pianoKeys"></div>
@@ -738,26 +705,13 @@ E sentir o teu calor..."></textarea>
         </div>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- CONSOLE DE LOG -->
-    <!-- ============================================================ -->
     <div class="console" id="console">
         <span class="info">> 🎸 Violão Compositor Sertanejo Pro v2.3.0 inicializado</span>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- KARAOKÊ - ACORDE GIGANTE -->
-    <!-- ============================================================ -->
     <div class="karaoke-acorde" id="karaokeAcorde"></div>
-
-    <!-- ============================================================ -->
-    <!-- MINI-BRAÇO CIFRACLUB (FLUTUANTE) -->
-    <!-- ============================================================ -->
     <div id="bracoFloat"></div>
 
-    <!-- ============================================================ -->
-    <!-- MODAL DE UPLOAD DE SAMPLES -->
-    <!-- ============================================================ -->
     <div class="modal hidden" id="modalUpload">
         <div class="modal-box">
             <h3>📂 Carregar Samples de Violão</h3>
@@ -775,9 +729,6 @@ E sentir o teu calor..."></textarea>
         </div>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- MODAL DE EXPORTAÇÃO DE CIFRA -->
-    <!-- ============================================================ -->
     <div class="modal hidden" id="modalExport">
         <div class="modal-box">
             <h3>📝 Cifra Exportada</h3>
@@ -786,13 +737,9 @@ E sentir o teu calor..."></textarea>
         </div>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- SCRIPTS -->
-    <!-- ============================================================ -->
     <script>
         // ============================================================
         // CLASSE: MiniBracoCifraClub
-        // Desenha o braço do violão no estilo CifraClub
         // ============================================================
         class MiniBracoCifraClub {
             constructor() {
@@ -802,42 +749,28 @@ E sentir o teu calor..."></textarea>
                 this.x = this.c.getContext('2d');
             }
 
-            /**
-             * Desenha o braço do violão com a posição do acorde
-             * @param {string} nome - Nome do acorde (ex: "C", "Am")
-             * @param {number[]} pos - Array com 6 posições de traste
-             */
             desenhar(nome, pos) {
                 const { x, c } = this;
                 const w = c.width;
                 const h = c.height;
 
-                // Limpar canvas
                 x.clearRect(0, 0, w, h);
-
-                // Fundo (cor de madeira clara)
                 x.fillStyle = '#f5f0e8';
                 x.fillRect(0, 0, w, h);
 
-                // Cabeça do braço (marrom escuro)
                 x.fillStyle = '#3d2b1f';
                 x.fillRect(0, 0, w, 22);
 
-                // Nome do acorde na cabeça
                 x.fillStyle = '#ffffff';
                 x.font = 'bold 11px "Segoe UI", sans-serif';
                 x.textAlign = 'center';
                 x.fillText(nome, w / 2, 15);
 
-                // Posições das cordas (X) e nomes
                 const cordasX = [23, 38, 53, 68, 83, 98];
                 const cordasNomes = ['E', 'A', 'D', 'G', 'B', 'E'];
-
-                // Posições dos trastes (Y)
                 const trastesY = [46, 66, 86, 106, 126];
                 const inicioY = 38;
 
-                // Desenhar nomes das cordas
                 x.fillStyle = '#999';
                 x.font = '8px "Segoe UI", sans-serif';
                 x.textAlign = 'center';
@@ -845,7 +778,6 @@ E sentir o teu calor..."></textarea>
                     x.fillText(nomeCorda, cordasX[i], 34);
                 });
 
-                // Desenhar pestana (linha grossa no topo)
                 x.strokeStyle = '#444';
                 x.lineWidth = 3;
                 x.beginPath();
@@ -853,7 +785,6 @@ E sentir o teu calor..."></textarea>
                 x.lineTo(w - 16, inicioY);
                 x.stroke();
 
-                // Desenhar trastes (linhas finas)
                 trastesY.forEach(y => {
                     x.strokeStyle = '#ccc';
                     x.lineWidth = 1;
@@ -863,7 +794,6 @@ E sentir o teu calor..."></textarea>
                     x.stroke();
                 });
 
-                // Desenhar cordas (linhas verticais)
                 cordasX.forEach(cx2 => {
                     x.strokeStyle = '#c9a87c';
                     x.lineWidth = 1.5;
@@ -873,17 +803,12 @@ E sentir o teu calor..."></textarea>
                     x.stroke();
                 });
 
-                // Desenhar posições do acorde (se fornecidas)
                 if (pos && pos.length === 6) {
-                    // Detectar pestana (barre) - 3+ cordas consecutivas no mesmo traste
                     const pestana = this._detectarPestana(pos);
-
-                    // Calcular offset para acordes em trastes altos
                     const trastesAtivos = pos.filter(t => t > 0);
                     const trasteMinimo = trastesAtivos.length > 0 ? Math.min(...trastesAtivos) : 1;
                     let offsetTraste = 0;
 
-                    // Se o acorde começa após o 3º traste, mostrar indicador
                     if (trasteMinimo > 3) {
                         offsetTraste = trasteMinimo - 1;
                         x.fillStyle = '#444';
@@ -892,25 +817,21 @@ E sentir o teu calor..."></textarea>
                         x.fillText(`${trasteMinimo}fr`, 7, trastesY[0] + 5);
                     }
 
-                    // Desenhar cada corda
                     pos.forEach((traste, indiceCorda) => {
                         const cordaX = cordasX[indiceCorda];
 
                         if (traste === -1) {
-                            // Corda não toca → X vermelho
                             x.fillStyle = '#e74c3c';
                             x.font = 'bold 11px "Segoe UI", sans-serif';
                             x.textAlign = 'center';
                             x.fillText('✕', cordaX, inicioY - 6);
                         } else if (traste === 0) {
-                            // Corda solta → círculo vazio
                             x.strokeStyle = '#444';
                             x.lineWidth = 1.5;
                             x.beginPath();
                             x.arc(cordaX, inicioY - 6, 4.5, 0, Math.PI * 2);
                             x.stroke();
                         } else {
-                            // Traste pressionado → bolinha preta
                             const trasteVisual = traste - offsetTraste - 1;
                             if (trasteVisual >= 0 && trasteVisual < trastesY.length) {
                                 const y = trastesY[trasteVisual] - 10;
@@ -922,7 +843,6 @@ E sentir o teu calor..."></textarea>
                         }
                     });
 
-                    // Desenhar pestana se detectada
                     if (pestana) {
                         const trasteVisual = pestana.traste - offsetTraste - 1;
                         if (trasteVisual >= 0 && trasteVisual < trastesY.length) {
@@ -936,11 +856,6 @@ E sentir o teu calor..."></textarea>
                 }
             }
 
-            /**
-             * Detecta se há pestana (barre) no acorde
-             * @param {number[]} pos - Posições dos trastes
-             * @returns {object|null} - { traste, cordas: [inicio, fim] } ou null
-             */
             _detectarPestana(pos) {
                 for (let i = 0; i < pos.length - 2; i++) {
                     if (pos[i] > 0) {
@@ -963,29 +878,19 @@ E sentir o teu calor..."></textarea>
 
         // ============================================================
         // CLASSE: ViolaoEngine
-        // Engine de áudio com suporte a samples multi-artículação
         // ============================================================
         class ViolaoEngine {
             constructor() {
-                // Contexto de áudio
                 this.ctx = null;
-
-                // Buffers de áudio carregados
                 this.buffers = {};
-
-                // Controle de carregamento
                 this.carregados = 0;
                 this.total = 36;
                 this.pronto = false;
-
-                // Callbacks
                 this.onProgress = null;
                 this.onReady = null;
 
-                // Cordas do violão (da mais grave para a mais aguda)
                 this.cordas = ['E6', 'A5', 'D4', 'G3', 'B2', 'E1'];
 
-                // Notas correspondentes a cada traste de cada corda
                 this.cordaNotas = {
                     'E6': ['E2', 'F2', 'F#2', 'G2', 'G#2', 'A2', 'A#2', 'B2', 'C3', 'C#3', 'D3', 'D#3', 'E3'],
                     'A5': ['A2', 'A#2', 'B2', 'C3', 'C#3', 'D3', 'D#3', 'E3', 'F3', 'F#3', 'G3', 'G#3', 'A3'],
@@ -995,160 +900,211 @@ E sentir o teu calor..."></textarea>
                     'E1': ['E4', 'F4', 'F#4', 'G4', 'G#4', 'A4', 'A#4', 'B4', 'C5', 'C#5', 'D5', 'D#5', 'E5']
                 };
 
-                // Dicionário de acordes (nome → posição nos trastes)
-                this.acordes = {
-                    // Maiores
-                    'C': [0, 3, 2, 0, 1, 0],
-                    'C#': [0, 4, 3, 1, 2, 1],
-                    'D': [0, 0, 0, 2, 3, 2],
-                    'D#': [0, 1, 1, 3, 4, 3],
-                    'E': [0, 2, 2, 1, 0, 0],
-                    'F': [1, 3, 3, 2, 1, 1],
-                    'F#': [2, 4, 4, 3, 2, 2],
-                    'G': [3, 2, 0, 0, 0, 3],
-                    'G#': [4, 3, 1, 1, 1, 4],
-                    'A': [0, 0, 2, 2, 2, 0],
-                    'A#': [1, 1, 3, 3, 3, 1],
-                    'B': [0, 2, 4, 4, 4, 2],
+this.acordes = {
+    // Maiores
+    'C': [0, 3, 2, 0, 1, 0],
+    'C#': [0, 4, 3, 1, 2, 1],
+    'D': [0, 0, 0, 2, 3, 2],
+    'D#': [0, 1, 1, 3, 4, 3],
+    'E': [0, 2, 2, 1, 0, 0],
+    'F': [1, 3, 3, 2, 1, 1],
+    'F#': [2, 4, 4, 3, 2, 2],
+    'G': [3, 2, 0, 0, 0, 3],
+    'G#': [4, 3, 1, 1, 1, 4],
+    'A': [0, 0, 2, 2, 2, 0],
+    'A#': [1, 1, 3, 3, 3, 1],
+    'B': [0, 2, 4, 4, 4, 2],
 
-                    // Menores
-                    'Cm': [0, 3, 5, 5, 4, 3],
-                    'C#m': [0, 4, 6, 6, 5, 4],
-                    'Dm': [0, 0, 0, 2, 3, 1],
-                    'D#m': [0, 1, 1, 3, 4, 2],
-                    'Em': [0, 2, 2, 0, 0, 0],
-                    'Fm': [1, 3, 3, 1, 1, 1],
-                    'F#m': [2, 4, 4, 2, 2, 2],
-                    'Gm': [3, 5, 5, 3, 3, 3],
-                    'G#m': [4, 6, 6, 4, 4, 4],
-                    'Am': [0, 0, 2, 2, 1, 0],
-                    'A#m': [1, 1, 3, 3, 2, 1],
-                    'Bm': [0, 2, 4, 4, 3, 2],
+    // Menores
+    'Cm': [0, 3, 5, 5, 4, 3],
+    'C#m': [0, 4, 6, 6, 5, 4],
+    'Dm': [0, 0, 0, 2, 3, 1],
+    'D#m': [0, 1, 1, 3, 4, 2],
+    'Em': [0, 2, 2, 0, 0, 0],
+    'Fm': [1, 3, 3, 1, 1, 1],
+    'F#m': [2, 4, 4, 2, 2, 2],
+    'Gm': [3, 5, 5, 3, 3, 3],
+    'G#m': [4, 6, 6, 4, 4, 4],
+    'Am': [0, 0, 2, 2, 1, 0],
+    'A#m': [1, 1, 3, 3, 2, 1],
+    'Bm': [0, 2, 4, 4, 3, 2],
 
-                    // Com Sétima
-                    'C7': [0, 3, 2, 3, 1, 0],
-                    'D7': [0, 0, 0, 2, 1, 2],
-                    'E7': [0, 2, 0, 1, 0, 0],
-                    'F7': [1, 3, 1, 2, 1, 1],
-                    'G7': [3, 2, 0, 0, 0, 1],
-                    'A7': [0, 0, 2, 0, 2, 0],
-                    'B7': [0, 2, 1, 2, 0, 2],
+    // Com Sétima
+    'C7': [0, 3, 2, 3, 1, 0],
+    'D7': [0, 0, 0, 2, 1, 2],
+    'E7': [0, 2, 0, 1, 0, 0],
+    'F7': [1, 3, 1, 2, 1, 1],
+    'G7': [3, 2, 0, 0, 0, 1],
+    'A7': [0, 0, 2, 0, 2, 0],
+    'B7': [0, 2, 1, 2, 0, 2],
 
-                    // 7ª Maior
-                    'C7M': [0, 3, 2, 0, 0, 0],
-                    'D7M': [0, 0, 0, 2, 2, 2],
-                    'E7M': [0, 2, 1, 1, 0, 0],
-                    'F7M': [1, 3, 2, 2, 1, 0],
-                    'G7M': [3, 2, 0, 0, 0, 2],
-                    'A7M': [0, 0, 2, 1, 2, 0],
-                    'B7M': [0, 2, 3, 3, 2, 2],
+    // 7ª Maior
+    'C7M': [0, 3, 2, 0, 0, 0],
+    'D7M': [0, 0, 0, 2, 2, 2],
+    'E7M': [0, 2, 1, 1, 0, 0],
+    'F7M': [1, 3, 2, 2, 1, 0],
+    'G7M': [3, 2, 0, 0, 0, 2],
+    'A7M': [0, 0, 2, 1, 2, 0],
+    'B7M': [0, 2, 3, 3, 2, 2],
 
-                    // Nonas
-                    'C9': [0, 3, 2, 3, 3, 3],
-                    'D9': [0, 0, 0, 2, 1, 0],
-                    'G9': [3, 2, 0, 2, 0, 3],
-                    'A9': [0, 0, 2, 0, 2, 2],
+    // Nonas
+    'C9': [0, 3, 2, 3, 3, 3],
+    'D9': [0, 0, 0, 2, 1, 0],
+    'G9': [3, 2, 0, 2, 0, 3],
+    'A9': [0, 0, 2, 0, 2, 2],
 
-                    // Add9
-                    'Cadd9': [0, 3, 2, 0, 3, 0],
-                    'Gadd9': [3, 2, 0, 2, 0, 3],
+    // Add9
+    'Cadd9': [0, 3, 2, 0, 3, 0],
+    'Gadd9': [3, 2, 0, 2, 0, 3],
 
-                    // Suspensos
-                    'Csus2': [0, 3, 0, 0, 3, 0],
-                    'Dsus2': [0, 0, 0, 2, 3, 0],
-                    'Esus2': [0, 2, 4, 4, 0, 0],
-                    'Csus4': [0, 3, 3, 0, 1, 0],
-                    'Dsus4': [0, 0, 0, 2, 3, 3],
-                    'Esus4': [0, 2, 2, 2, 0, 0],
-                    'Gsus4': [3, 3, 0, 0, 1, 3],
-                    'Asus4': [0, 0, 2, 2, 3, 0],
+    // Suspensos
+    'Csus2': [0, 3, 0, 0, 3, 0],
+    'Dsus2': [0, 0, 0, 2, 3, 0],
+    'Esus2': [0, 2, 4, 4, 0, 0],
+    'Csus4': [0, 3, 3, 0, 1, 0],
+    'Dsus4': [0, 0, 0, 2, 3, 3],
+    'Esus4': [0, 2, 2, 2, 0, 0],
+    'Gsus4': [3, 3, 0, 0, 1, 3],
+    'Asus4': [0, 0, 2, 2, 3, 0],
 
-                    // Diminutos
-                    'Cdim': [0, 3, 4, 2, 0, 0],
-                    'Ddim': [0, 0, 0, 1, 3, 1],
-                    'Edim': [0, 1, 2, 0, 2, 0],
-                    'Fdim': [1, 3, 4, 2, 0, 0],
-                    'Gdim': [3, 4, 5, 3, 0, 0],
-                    'Adim': [0, 0, 1, 2, 1, 0],
-                    'Bdim': [0, 1, 2, 0, 2, 0],
+    // Diminutos
+    'Cdim': [0, 3, 4, 2, 0, 0],
+    'Ddim': [0, 0, 0, 1, 3, 1],
+    'Edim': [0, 1, 2, 0, 2, 0],
+    'Fdim': [1, 3, 4, 2, 0, 0],
+    'Gdim': [3, 4, 5, 3, 0, 0],
+    'Adim': [0, 0, 1, 2, 1, 0],
+    'Bdim': [0, 1, 2, 0, 2, 0],
 
-                    // Sertanejos (posições alternativas)
-                    'C_sertanejo': [0, 3, 2, 0, 1, 0],
-                    'G_sertanejo': [3, 2, 0, 0, 0, 3],
-                    'D_sertanejo': [0, 0, 0, 2, 3, 2],
-                    'A_sertanejo': [0, 0, 2, 2, 2, 0]
+    // 🎸 SERTANEJOS
+    'C_sertanejo': [3, 3, 2, 0, 1, -1],   // 1ª corda ABAFADA
+    'G_sertanejo': [3, 2, 0, 0, 3, -1],   // 1ª corda ABAFADA
+    'D_sertanejo': [2, 0, 0, 2, 3, -1],   // 1ª corda ABAFADA, baixo F#
+    'A_sertanejo': [0, 0, 2, 2, 2, -1],   // 1ª corda ABAFADA, baixo E
+    'E_sertanejo': [0, 2, 2, 1, 0, -1],   // 1ª corda ABAFADA
+    'F_sertanejo': [1, 3, 3, 2, 1, -1],   // 1ª corda ABAFADA
+    'B_sertanejo': [2, 2, 4, 4, 4, -1],   // 1ª corda ABAFADA
+    'Am_sertanejo': [0, 0, 2, 2, 1, -1],   // 1ª corda ABAFADA
+    'G/B_sertanejo': [-1, 2, 0, 0, 3, -1]  // G com baixo em B, 1ª abafada
+};
+
+            estaPronto() { return this.pronto; }
+            resumeContext() { if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume(); }
+
+            // ============================================================
+            // CARREGAMENTO DO GITHUB - CORRIGIDO
+            // ============================================================
+            async carregarDoGitHub(usuario = 'aoar-byte', repo = 'violao-compositor-sertanejo') {
+                this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+                this.buffers = {};
+                this.carregados = 0;
+                
+                // Detecta branch automaticamente
+                let branch = 'main';
+                let baseUrl = `https://raw.githubusercontent.com/${usuario}/${repo}/${branch}/samples`;
+                
+                try {
+                    const testResponse = await fetch(`${baseUrl}/E2/E2-1-spn.wav`, { method: 'HEAD' });
+                    if (!testResponse.ok) {
+                        branch = 'master';
+                        baseUrl = `https://raw.githubusercontent.com/${usuario}/${repo}/${branch}/samples`;
+                        console.log('Usando branch master');
+                    }
+                } catch (e) {
+                    console.log('Teste de conexão falhou, tentando master...');
+                    branch = 'master';
+                    baseUrl = `https://raw.githubusercontent.com/${usuario}/${repo}/${branch}/samples`;
+                }
+                
+                console.log(`🌐 Carregando samples do GitHub (branch: ${branch})...`);
+                
+                if (this.onProgress) {
+                    this.onProgress(0, 'Conectando ao GitHub...');
+                }
+                
+                // Mapeamento de trastes para notas
+                const trastesParaNotas = {
+                    'E6_t0': 'E2', 'E6_t3': 'G2', 'E6_t5': 'A2', 'E6_t7': 'B2', 'E6_t10': 'D3', 'E6_t12': 'E3',
+                    'A5_t0': 'A2', 'A5_t3': 'C3', 'A5_t5': 'D3', 'A5_t7': 'E3', 'A5_t10': 'G3', 'A5_t12': 'A3',
+                    'D4_t0': 'D3', 'D4_t2': 'E3', 'D4_t4': 'Fsharp3', 'D4_t7': 'A3', 'D4_t9': 'B3', 'D4_t12': 'D4',
+                    'G3_t0': 'G3', 'G3_t2': 'A3', 'G3_t4': 'B3', 'G3_t7': 'D4', 'G3_t9': 'E4', 'G3_t12': 'G4',
+                    'B2_t0': 'B3', 'B2_t1': 'C4', 'B2_t3': 'D4', 'B2_t5': 'E4', 'B2_t8': 'G4', 'B2_t12': 'B4',
+                    'E1_t0': 'E4', 'E1_t1': 'F4', 'E1_t3': 'G4', 'E1_t5': 'A4', 'E1_t8': 'C5', 'E1_t12': 'E5'
                 };
-            }
-
-            /**
-             * Verifica se o engine está pronto para tocar
-             */
-            estaPronto() {
+                
+                const sufixos = ['spn', 'sfn', 'npn', 'spm', 'npm', 'nfn'];
+                const notasNecessarias = [...new Set(Object.values(trastesParaNotas))];
+                let carregadas = 0;
+                
+                for (const nota of notasNecessarias) {
+                    let carregado = false;
+                    
+                    for (const sufixo of sufixos) {
+                        if (carregado) break;
+                        
+                        // Round-robin: tenta diferentes takes
+                        for (const take of [1, 7, 13, 19]) {
+                            const url = `${baseUrl}/${nota}/${nota}-${take}-${sufixo}.wav`;
+                            
+                            try {
+                                const response = await fetch(url);
+                                if (response.ok) {
+                                    const arrayBuffer = await response.arrayBuffer();
+                                    const audioBuffer = await this.ctx.decodeAudioData(arrayBuffer);
+                                    
+                                    // Armazena para todos os trastes que usam esta nota
+                                    for (const [trasteKey, notaKey] of Object.entries(trastesParaNotas)) {
+                                        if (notaKey === nota && !this.buffers[trasteKey]) {
+                                            this.buffers[trasteKey] = audioBuffer;
+                                        }
+                                    }
+                                    
+                                    this.carregados++;
+                                    carregadas++;
+                                    carregado = true;
+                                    
+                                    if (this.onProgress) {
+                                        const pct = Math.round((carregadas / notasNecessarias.length) * 100);
+                                        this.onProgress(pct, nota);
+                                    }
+                                    break;
+                                }
+                            } catch (e) {
+                                continue;
+                            }
+                        }
+                    }
+                    
+                    if (!carregado) {
+                        console.warn(`⚠️ Nota não encontrada: ${nota}`);
+                    }
+                }
+                
+                console.log(`✅ ${this.carregados} buffers carregados de ${notasNecessarias.length} notas`);
+                this.pronto = this.carregados >= 20;
+                if (this.onReady) this.onReady(this.pronto);
                 return this.pronto;
             }
 
-            /**
-             * Resume o contexto de áudio (necessário após interação do usuário)
-             */
-            resumeContext() {
-                if (this.ctx && this.ctx.state === 'suspended') {
-                    this.ctx.resume();
-                }
-            }
-
-            /**
-             * Inicializa o engine carregando os samples do dataset
-             * @param {object} arquivosPorPasta - Objeto { nomePasta: [{nome, file}] }
-             */
+            // ============================================================
+            // UPLOAD MANUAL
+            // ============================================================
             async init(arquivosPorPasta) {
-                this.ctx = new(window.AudioContext || window.webkitAudioContext)();
+                this.ctx = new (window.AudioContext || window.webkitAudioContext)();
                 this.buffers = {};
                 this.carregados = 0;
 
-                // Mapeamento de quais arquivos precisamos carregar
                 const trastesParaNotas = {
-                    'E6_t0': 'E2',
-                    'E6_t3': 'G2',
-                    'E6_t5': 'A2',
-                    'E6_t7': 'B2',
-                    'E6_t10': 'D3',
-                    'E6_t12': 'E3',
-                    'A5_t0': 'A2',
-                    'A5_t3': 'C3',
-                    'A5_t5': 'D3',
-                    'A5_t7': 'E3',
-                    'A5_t10': 'G3',
-                    'A5_t12': 'A3',
-                    'D4_t0': 'D3',
-                    'D4_t2': 'E3',
-                    'D4_t4': 'Fsharp3',
-                    'D4_t7': 'A3',
-                    'D4_t9': 'B3',
-                    'D4_t12': 'D4',
-                    'G3_t0': 'G3',
-                    'G3_t2': 'A3',
-                    'G3_t4': 'B3',
-                    'G3_t7': 'D4',
-                    'G3_t9': 'E4',
-                    'G3_t12': 'G4',
-                    'B2_t0': 'B3',
-                    'B2_t1': 'C4',
-                    'B2_t3': 'D4',
-                    'B2_t5': 'E4',
-                    'B2_t8': 'G4',
-                    'B2_t12': 'B4',
-                    'E1_t0': 'E4',
-                    'E1_t1': 'F4',
-                    'E1_t3': 'G4',
-                    'E1_t5': 'A4',
-                    'E1_t8': 'C5',
-                    'E1_t12': 'E5'
+                    'E6_t0': 'E2', 'E6_t3': 'G2', 'E6_t5': 'A2', 'E6_t7': 'B2', 'E6_t10': 'D3', 'E6_t12': 'E3',
+                    'A5_t0': 'A2', 'A5_t3': 'C3', 'A5_t5': 'D3', 'A5_t7': 'E3', 'A5_t10': 'G3', 'A5_t12': 'A3',
+                    'D4_t0': 'D3', 'D4_t2': 'E3', 'D4_t4': 'Fsharp3', 'D4_t7': 'A3', 'D4_t9': 'B3', 'D4_t12': 'D4',
+                    'G3_t0': 'G3', 'G3_t2': 'A3', 'G3_t4': 'B3', 'G3_t7': 'D4', 'G3_t9': 'E4', 'G3_t12': 'G4',
+                    'B2_t0': 'B3', 'B2_t1': 'C4', 'B2_t3': 'D4', 'B2_t5': 'E4', 'B2_t8': 'G4', 'B2_t12': 'B4',
+                    'E1_t0': 'E4', 'E1_t1': 'F4', 'E1_t3': 'G4', 'E1_t5': 'A4', 'E1_t8': 'C5', 'E1_t12': 'E5'
                 };
 
-                // Sufixos de articulação para tentar (ordem de preferência)
                 const sufixosTry = ['spn', 'sfn', 'npn', 'spm'];
 
-                // Carregar cada nota necessária
                 for (const [trasteKey, nota] of Object.entries(trastesParaNotas)) {
                     let carregado = false;
 
@@ -1174,70 +1130,51 @@ E sentir o teu calor..."></textarea>
                         }
                     }
 
-                    // Atualizar progresso
                     if (this.onProgress) {
                         const percent = Math.round((this.carregados / this.total) * 100);
                         this.onProgress(percent, nota);
                     }
                 }
 
-                // Verificar se carregou o suficiente
                 this.pronto = this.carregados >= 20;
-
-                if (this.onReady) {
-                    this.onReady(this.pronto);
-                }
-
+                if (this.onReady) this.onReady(this.pronto);
                 return this.pronto;
             }
 
-            /**
-             * Toca um acorde completo
-             * @param {string} nome - Nome do acorde
-             * @param {number} intensidade - Volume (0 a 1)
-             * @param {string} modo - Modo de execução
-             * @param {number} duracao - Duração em segundos
-             */
+            // ============================================================
+            // TOQUE DE ACORDES
+            // ============================================================
             tocarAcorde(nome, intensidade = 0.7, modo = 'batida_sertanejo', duracao = 1.5) {
                 if (!this.pronto) return;
-
                 const posicao = this.acordes[nome];
                 if (!posicao) return;
-
                 const agora = this.ctx.currentTime;
                 const cordas = this.cordas;
 
                 switch (modo) {
                     case 'batida_sertanejo':
                     case 'batida_cheia':
-                        // Raspar todas as cordas rapidamente
                         cordas.forEach((corda, i) => {
                             if (posicao[i] >= 0) {
                                 this.tocarCorda(corda, posicao[i], intensidade * 0.9, agora + i * 0.005, duracao);
                             }
                         });
                         break;
-
                     case 'dedilhado_suave':
-                        // Padrão P-I-M-A-M-I (Polegar-Indicador-Médio-Anelar)
                         [0, 1, 3, 4, 5, 4, 3].forEach((ci, idx) => {
                             if (posicao[ci] >= 0) {
                                 this.tocarCorda(cordas[ci], posicao[ci], intensidade * 0.7, agora + idx * 0.12, 2.0);
                             }
                         });
                         break;
-
                     case 'fingerstyle':
-                        // Padrão alternado
                         [0, 3, 1, 4, 2, 5].forEach((ci, idx) => {
                             if (posicao[ci] >= 0) {
                                 this.tocarCorda(cordas[ci], posicao[ci], intensidade * 0.75, agora + idx * 0.1, 1.8);
                             }
                         });
                         break;
-
                     case 'abafado':
-                        // Palm mute - notas muito curtas
                         cordas.forEach((corda, i) => {
                             if (posicao[i] >= 0) {
                                 this.tocarCorda(corda, posicao[i], intensidade * 0.4, agora + i * 0.003, 0.12);
@@ -1247,25 +1184,18 @@ E sentir o teu calor..."></textarea>
                 }
             }
 
-            /**
-             * Toca uma corda individual
-             */
             tocarCorda(corda, traste, intensidade, inicio, duracao) {
                 const key = `${corda}_t${traste}`;
                 const buffer = this.buffers[key];
-
                 if (!buffer) return;
 
                 const source = this.ctx.createBufferSource();
                 source.buffer = buffer;
-
                 const gain = this.ctx.createGain();
                 gain.gain.setValueAtTime(intensidade, inicio);
                 gain.gain.exponentialRampToValueAtTime(0.001, inicio + duracao);
-
                 source.connect(gain);
                 gain.connect(this.ctx.destination);
-
                 source.start(inicio);
                 source.stop(inicio + duracao + 0.05);
             }
@@ -1273,52 +1203,35 @@ E sentir o teu calor..."></textarea>
 
         // ============================================================
         // CLASSE: CompositorApp
-        // Aplicativo principal - Interface e lógica de composição
         // ============================================================
         class CompositorApp {
             constructor() {
-                // Engine de áudio
                 this.engine = new ViolaoEngine();
-
-                // Configurações
                 this.modo = 'batida_sertanejo';
                 this.bpm = 90;
                 this.compasso = 4;
                 this.loop = true;
-
-                // Estado de reprodução
                 this.tocando = false;
                 this.cursorPos = 0;
                 this.timer = null;
-
-                // Grade de acordes (timeline)
                 this.grade = [];
-
-                // Acorde selecionado
                 this.acordeSel = null;
-
-                // Acordes personalizados
                 this.customAcordes = {};
-
-                // Lista de todas as notas do violão (para o piano roll)
+                
+                // Lista de todas as notas do violão
                 this.notasViolao = [];
                 const todasNotas = new Set();
                 this.engine.cordas.forEach(corda => {
                     this.engine.cordaNotas[corda].forEach(nota => todasNotas.add(nota));
                 });
                 this.notasViolao = Array.from(todasNotas).sort();
-
-                // Mini-braço CifraClub
+                
                 this.miniBraco = new MiniBracoCifraClub();
-
-                // Elemento de karaokê
                 this._karaokeEl = null;
                 this._karaokeTimer = null;
-
-                // Inicializar
+                
                 this.initDOM();
                 this.initEventos();
-                this.configEngine();
                 this.buildPiano();
                 this.buildCategorias();
                 this.buildEditor();
@@ -1327,9 +1240,6 @@ E sentir o teu calor..."></textarea>
                 this.loadCustomAcordes();
             }
 
-            // ============================================================
-            // INICIALIZAÇÃO DO DOM
-            // ============================================================
             initDOM() {
                 this.statusDot = document.getElementById('statusDot');
                 this.statusText = document.getElementById('statusText');
@@ -1351,266 +1261,138 @@ E sentir o teu calor..."></textarea>
                 this.inputCifra = document.getElementById('inputCifra');
             }
 
-            // ============================================================
-            // CONFIGURAÇÃO INICIAL
-            // ============================================================
-            setupBracoFlutuante() {
-                this.bracoFloat.appendChild(this.miniBraco.c);
+            setupBracoFlutuante() { 
+                this.bracoFloat.appendChild(this.miniBraco.c); 
+            }
+            
+            setupKaraoke() { 
+                this._karaokeEl = document.getElementById('karaokeAcorde'); 
             }
 
-            setupKaraoke() {
-                this._karaokeEl = document.getElementById('karaokeAcorde');
-            }
-
-            configEngine() {
+            // ============================================================
+            // INICIALIZAÇÃO DO GITHUB - CORRIGIDA
+            // ============================================================
+            async iniciarComGitHub() {
+                this.log('🌐 Tentando carregar samples do GitHub...', 'info');
+                this.log('⏳ Isso pode levar alguns segundos...', 'info');
+                
+                // Configura callbacks de progresso
                 this.engine.onProgress = (pct, nota) => {
-                    this.modalProgressFill.style.width = pct + '%';
-                    this.modalStatus.textContent = `Carregando... ${pct}% - ${nota || ''}`;
+                    if (this.modalProgressFill) {
+                        this.modalProgressFill.style.width = pct + '%';
+                        this.modalStatus.textContent = `Carregando... ${pct}% - ${nota || ''}`;
+                    }
                 };
-
+                
                 this.engine.onReady = (ok) => {
                     if (ok) {
                         this.statusDot.classList.add('online');
-                        this.statusText.textContent = '✅ Samples Prontos!';
-                        this.modalUpload.classList.add('hidden');
-                        this.log('✅ Samples carregados com sucesso! Pronto para compor.', 'ok');
+                        this.statusText.textContent = '✅ Pronto (GitHub)';
+                        if (this.modalUpload) this.modalUpload.classList.add('hidden');
+                        this.log('✅ Samples carregados automaticamente do GitHub!', 'ok');
+                        this.log('🎸 Pronto para compor! Clique em acordes ou cole uma cifra.', 'ok');
                     } else {
-                        this.log('⚠️ Alguns samples não foram carregados. Verifique as pastas.', 'warn');
+                        this.log('⚠️ Não foi possível carregar do GitHub automaticamente', 'warn');
+                        this.log('💡 Clique em "📁 Carregar Samples" para upload manual', 'info');
+                        this.log('📁 Você pode selecionar as 42 pastas do dataset Kaggle', 'info');
                     }
                 };
+                
+                const sucesso = await this.engine.carregarDoGitHub('aoar-byte', 'violao-compositor-sertanejo');
+                if (!sucesso) {
+                    this.log('⚠️ Carregamento automático falhou. Use upload manual.', 'warn');
+                }
             }
 
             // ============================================================
-            // EVENTOS
-            // ============================================================
-            initEventos() {
-                // Playback
-                document.getElementById('btnPlay').addEventListener('click', () => this.togglePlay());
-                document.getElementById('btnStop').addEventListener('click', () => this.parar());
-                document.getElementById('btnLoop').addEventListener('click', function() {
-                    this.classList.toggle('ativo');
-                    window.app.loop = this.classList.contains('ativo');
-                });
-
-                // Configurações
-                document.getElementById('bpmInput').addEventListener('change', e => {
-                    this.bpm = parseInt(e.target.value) || 90;
-                });
-                document.getElementById('compassoSelect').addEventListener('change', e => {
-                    this.compasso = parseInt(e.target.value);
-                });
-                document.getElementById('modoSelect').addEventListener('change', e => {
-                    this.modo = e.target.value;
-                });
-
-                // Exportação
-                document.getElementById('btnExportar').addEventListener('click', () => this.exportarCifra());
-                document.getElementById('btnCopiar').addEventListener('click', () => this.copiarProgressao());
-                document.getElementById('btnSalvarProjeto').addEventListener('click', () => this.salvarProjeto());
-                document.getElementById('btnCarregarProjeto').addEventListener('click', () => this.carregarProjeto());
-
-                // Upload
-                document.getElementById('btnUpload').addEventListener('click', () => {
-                    this.modalUpload.classList.remove('hidden');
-                });
-                document.getElementById('btnSelecionarPastas').addEventListener('click', () => {
-                    this.folderInput.click();
-                });
-                document.getElementById('btnFecharUpload').addEventListener('click', () => {
-                    this.modalUpload.classList.add('hidden');
-                });
-                document.getElementById('btnFecharExport').addEventListener('click', () => {
-                    this.modalExport.classList.add('hidden');
-                });
-                this.folderInput.addEventListener('change', e => this.processUpload(e));
-
-                // Limpeza
-                document.getElementById('btnLimpar').addEventListener('click', () => {
-                    this.grade = [];
-                    this.renderGrade();
-                    this.log('🧹 Grade limpa!', 'info');
-                });
-
-                // Ferramentas
-                document.getElementById('btnSugerir').addEventListener('click', () => this.sugerirProximoAcorde());
-                document.getElementById('btnRitmoSertanejo').addEventListener('click', () => this.aplicarRitmoSertanejo());
-
-                // CifraClub
-                document.getElementById('btnParseCifra').addEventListener('click', () => {
-                    this.parseCifraClub(this.inputCifra.value);
-                });
-
-                // Fechar modais com clique fora
-                this.modalUpload.addEventListener('click', e => {
-                    if (e.target === this.modalUpload) this.modalUpload.classList.add('hidden');
-                });
-                this.modalExport.addEventListener('click', e => {
-                    if (e.target === this.modalExport) this.modalExport.classList.add('hidden');
-                });
-
-                // Atalhos de teclado
-                document.addEventListener('keydown', e => {
-                    // Escape fecha modais
-                    if (e.key === 'Escape') {
-                        this.modalUpload.classList.add('hidden');
-                        this.modalExport.classList.add('hidden');
-                        return;
-                    }
-
-                    // Ignorar se estiver em input (exceto range)
-                    if (e.target.tagName === 'INPUT' && e.target.type !== 'range') return;
-                    if (e.target.tagName === 'TEXTAREA') return;
-
-                    // Espaço = Play/Pause
-                    if (e.key === ' ' && !e.ctrlKey) {
-                        e.preventDefault();
-                        this.togglePlay();
-                        return;
-                    }
-
-                    // Delete = Limpar grade
-                    if (e.key === 'Delete' && !e.ctrlKey) {
-                        this.grade = [];
-                        this.renderGrade();
-                        this.log('🧹 Grade limpa! (Delete)', 'info');
-                        return;
-                    }
-
-                    // Ctrl+Z = Desfazer
-                    if (e.ctrlKey && e.key === 'z') {
-                        e.preventDefault();
-                        this.grade.pop();
-                        this.renderGrade();
-                        this.log('↩ Último acorde removido (Ctrl+Z)', 'info');
-                        return;
-                    }
-
-                    // Teclas rápidas para acordes
-                    const teclasRapidas = {
-                        '1': 'C',
-                        '2': 'G',
-                        '3': 'D',
-                        '4': 'A',
-                        '5': 'E',
-                        '6': 'F',
-                        'q': 'Am',
-                        'w': 'Em',
-                        'e': 'Dm',
-                        'r': 'Cm',
-                        't': 'G7'
-                    };
-
-                    if (teclasRapidas[e.key] && !e.ctrlKey && !e.metaKey) {
-                        this.selecionarAcorde(teclasRapidas[e.key]);
-                        this.addAcordeNaGrade(teclasRapidas[e.key]);
-                    }
-                });
-
-                // Ctrl+V cola direto no campo de cifra
-                document.addEventListener('paste', (e) => {
-                    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-
-                    const texto = e.clipboardData.getData('text');
-                    if (texto && texto.length > 5 && texto.includes('\n')) {
-                        this.inputCifra.value = texto;
-                        this.log('📋 Cifra colada! Clique em "Converter para Grade" para ouvir.', 'cifraclub');
-                    }
-                });
-            }
-
-            // ============================================================
-            // UPLOAD DE SAMPLES
+            // UPLOAD MANUAL
             // ============================================================
             async processUpload(e) {
                 const files = Array.from(e.target.files);
                 if (!files.length) return;
-
-                this.modalProgress.style.display = 'block';
+                
+                if (this.modalProgress) this.modalProgress.style.display = 'block';
                 this.log(`📂 Processando ${files.length} arquivos...`, 'info');
-
-                // Agrupar por pasta
+                
                 const porPasta = {};
                 files.forEach(f => {
                     const partes = f.webkitRelativePath.split('/');
                     const pasta = partes[0];
                     const nome = partes[partes.length - 1].replace(/\.[^.]+$/, '');
-
                     if (!porPasta[pasta]) porPasta[pasta] = [];
                     porPasta[pasta].push({ nome, file: f });
                 });
-
-                const totalPastas = Object.keys(porPasta).length;
-                this.log(`📁 ${totalPastas} pastas encontradas`, 'info');
-
+                
+                this.engine.onProgress = (pct, nota) => {
+                    if (this.modalProgressFill) {
+                        this.modalProgressFill.style.width = pct + '%';
+                        this.modalStatus.textContent = `Carregando... ${pct}% - ${nota || ''}`;
+                    }
+                };
+                
+                this.engine.onReady = (ok) => {
+                    if (ok) {
+                        this.statusDot.classList.add('online');
+                        this.statusText.textContent = '✅ Samples Prontos!';
+                        if (this.modalUpload) this.modalUpload.classList.add('hidden');
+                        this.log('✅ Samples carregados com sucesso! Pronto para compor.', 'ok');
+                    } else {
+                        this.log('⚠️ Alguns samples não foram carregados. Verifique as pastas.', 'warn');
+                    }
+                };
+                
                 await this.engine.init(porPasta);
             }
 
             // ============================================================
-            // PARSER DE CIFRA (Modo CifraClub)
+            // PARSER DE CIFRA
             // ============================================================
             parseCifraClub(texto) {
-                if (!texto || !texto.trim()) {
-                    this.log('⚠️ Cole uma cifra primeiro no campo acima!', 'warn');
-                    return;
+                if (!texto || !texto.trim()) { 
+                    this.log('⚠️ Cole uma cifra primeiro no campo acima!', 'warn'); 
+                    return; 
                 }
-
-                // Expressão regular para encontrar acordes
-                // Reconhece: C, C#, Db, Cm, C7, C7M, C9, Cdim, Csus2, Csus4, etc.
+                
                 const regexAcorde = /\b[A-G][#b]?(?:m|7M|7|9|dim|sus[24]|add9|aug|m7|m7b5|º)?(?:_sertanejo)?\b/g;
-
                 const linhas = texto.split('\n');
                 const acordesEncontrados = [];
-
-                // Analisar cada linha
+                
                 linhas.forEach(linha => {
                     const matches = linha.match(regexAcorde);
                     if (matches) {
-                        matches.forEach(m => {
-                            // Verificar se é um acorde válido no engine
-                            if (this.engine.acordes[m]) {
-                                acordesEncontrados.push(m);
-                            }
+                        matches.forEach(m => { 
+                            if (this.engine.acordes[m]) acordesEncontrados.push(m); 
                         });
                     }
                 });
-
-                if (acordesEncontrados.length === 0) {
-                    this.log('⚠️ Nenhum acorde reconhecido na cifra!', 'warn');
-                    this.log('💡 Formatos aceitos: C, Am, G7, F#m, C7M, Bb, C_sertanejo', 'info');
-                    return;
+                
+                if (acordesEncontrados.length === 0) { 
+                    this.log('⚠️ Nenhum acorde reconhecido na cifra!', 'warn'); 
+                    return; 
                 }
-
-                // Construir grade
+                
                 this.grade = [];
                 let tempoAtual = 0;
-
                 acordesEncontrados.forEach(acorde => {
-                    this.grade.push({
-                        acorde: acorde,
-                        tempo: tempoAtual,
-                        duracao: this.compasso
-                    });
+                    this.grade.push({ acorde: acorde, tempo: tempoAtual, duracao: this.compasso });
                     tempoAtual += this.compasso;
                 });
-
+                
                 this.renderGrade();
-
                 this.log(`✅ ${acordesEncontrados.length} acordes convertidos para a grade!`, 'ok');
                 this.log(`📋 Sequência: ${acordesEncontrados.join(' → ')}`, 'cifraclub');
-
-                // Tocar automaticamente se o engine estiver pronto
-                if (this.engine.estaPronto()) {
-                    setTimeout(() => this.tocar(), 500);
-                } else {
-                    this.log('⚠️ Carregue os samples primeiro (botão "📁 Carregar Samples")', 'warn');
+                
+                if (this.engine.estaPronto()) { 
+                    setTimeout(() => this.tocar(), 500); 
+                } else { 
+                    this.log('⚠️ Carregue os samples primeiro (botão "📁 Carregar Samples")', 'warn'); 
                 }
             }
 
             // ============================================================
-            // CONSTRUÇÃO DO PIANO ROLL
+            // BUILD DO PIANO
             // ============================================================
             buildPiano() {
-                // Construir teclas do piano
                 this.pianoKeys.innerHTML = '';
                 this.notasViolao.forEach(nota => {
                     const key = document.createElement('div');
@@ -1620,8 +1402,7 @@ E sentir o teu calor..."></textarea>
                     key.addEventListener('click', () => this.previewNota(nota));
                     this.pianoKeys.appendChild(key);
                 });
-
-                // Construir linhas da grade
+                
                 this.acordesGrade.innerHTML = '';
                 this.notasViolao.forEach(nota => {
                     const linha = document.createElement('div');
@@ -1629,48 +1410,44 @@ E sentir o teu calor..."></textarea>
                     linha.dataset.nota = nota;
                     this.acordesGrade.appendChild(linha);
                 });
-
-                // Referência ao cursor de playback
+                
                 this.cursorPlay = document.getElementById('cursorPlay');
-                if (!this.acordesGrade.contains(this.cursorPlay)) {
-                    this.acordesGrade.appendChild(this.cursorPlay);
+                if (!this.acordesGrade.contains(this.cursorPlay)) { 
+                    this.acordesGrade.appendChild(this.cursorPlay); 
                 }
             }
 
+            // ============================================================
+            // RENDERIZAÇÃO DA GRADE
+            // ============================================================
             renderGrade() {
-                // Remover blocos existentes
                 this.acordesGrade.querySelectorAll('.bloco-acorde').forEach(b => b.remove());
-
                 const PX_POR_BATIDA = 80;
-
+                
                 this.grade.forEach((item, i) => {
                     const posicao = this.engine.acordes[item.acorde];
                     if (!posicao) return;
-
-                    // Encontrar a nota mais grave do acorde para posicionar
+                    
                     let notaGrave = null;
                     for (let ci = 0; ci < posicao.length; ci++) {
-                        if (posicao[ci] >= 0) {
-                            notaGrave = this.engine.cordaNotas[this.engine.cordas[ci]][posicao[ci]];
-                            break;
+                        if (posicao[ci] >= 0) { 
+                            notaGrave = this.engine.cordaNotas[this.engine.cordas[ci]][posicao[ci]]; 
+                            break; 
                         }
                     }
                     if (!notaGrave) return;
-
-                    // Calcular posição Y baseada na nota
+                    
                     const idxNota = this.notasViolao.indexOf(notaGrave);
                     if (idxNota < 0) return;
-
+                    
                     let y = 0;
-                    for (let ni = 0; ni < idxNota; ni++) {
-                        y += this.notasViolao[ni].includes('#') ? 17 : 26;
+                    for (let ni = 0; ni < idxNota; ni++) { 
+                        y += this.notasViolao[ni].includes('#') ? 17 : 26; 
                     }
-
-                    // Calcular posição X baseada no tempo
+                    
                     const x = (item.tempo / 4) * PX_POR_BATIDA * 4;
                     const largura = Math.max((item.duracao / 4) * PX_POR_BATIDA * 4, 50);
-
-                    // Criar bloco visual
+                    
                     const bloco = document.createElement('div');
                     bloco.className = 'bloco-acorde';
                     bloco.style.left = x + 'px';
@@ -1679,115 +1456,84 @@ E sentir o teu calor..."></textarea>
                     bloco.textContent = item.acorde;
                     bloco.title = `${item.acorde} | Tempo: ${item.tempo} | Duração: ${item.duracao}`;
                     bloco.dataset.index = i;
-
-                    // Eventos
+                    
                     bloco.addEventListener('click', () => this.selecionarAcorde(item.acorde));
-                    bloco.addEventListener('dblclick', () => {
-                        this.grade.splice(i, 1);
-                        this.renderGrade();
-                        this.log(`🗑️ ${item.acorde} removido da grade`, 'info');
+                    bloco.addEventListener('dblclick', () => { 
+                        this.grade.splice(i, 1); 
+                        this.renderGrade(); 
+                        this.log(`🗑️ ${item.acorde} removido da grade`, 'info'); 
                     });
-
+                    
                     this.acordesGrade.appendChild(bloco);
                 });
             }
 
             addAcordeNaGrade(acorde) {
-                const ultimoTempo = this.grade.length > 0 ?
-                    this.grade[this.grade.length - 1].tempo + this.grade[this.grade.length - 1].duracao :
-                    0;
-
-                this.grade.push({
-                    acorde: acorde,
-                    tempo: ultimoTempo,
-                    duracao: this.compasso
-                });
-
+                const ultimoTempo = this.grade.length > 0 ? 
+                    this.grade[this.grade.length - 1].tempo + this.grade[this.grade.length - 1].duracao : 0;
+                this.grade.push({ acorde: acorde, tempo: ultimoTempo, duracao: this.compasso });
                 this.renderGrade();
                 this.log(`➕ ${acorde} adicionado à grade (tempo: ${ultimoTempo})`, 'ok');
             }
 
             // ============================================================
-            // REPRODUÇÃO
+            // PLAYBACK
             // ============================================================
-            togglePlay() {
-                if (this.tocando) {
-                    this.parar();
-                } else {
-                    this.tocar();
-                }
+            togglePlay() { 
+                if (this.tocando) this.parar(); 
+                else this.tocar(); 
             }
 
             tocar() {
-                if (!this.engine.estaPronto()) {
-                    this.log('⚠️ Carregue os samples primeiro! (botão "📁 Carregar Samples")', 'warn');
-                    return;
+                if (!this.engine.estaPronto()) { 
+                    this.log('⚠️ Carregue os samples primeiro! (botão "📁 Carregar Samples")', 'warn'); 
+                    return; 
                 }
-
-                if (!this.grade.length) {
-                    this.log('⚠️ Adicione acordes à grade primeiro!', 'warn');
-                    return;
+                if (!this.grade.length) { 
+                    this.log('⚠️ Adicione acordes à grade primeiro!', 'warn'); 
+                    return; 
                 }
-
+                
                 this.engine.resumeContext();
                 this.tocando = true;
                 document.getElementById('btnPlay').textContent = '⏸';
                 this.cursorPos = 0;
-                this.cursorPlay.style.display = 'block';
+                if (this.cursorPlay) this.cursorPlay.style.display = 'block';
                 this.step();
             }
 
             parar() {
                 this.tocando = false;
                 document.getElementById('btnPlay').textContent = '▶';
-                this.cursorPlay.style.display = 'none';
-
-                if (this.timer) {
-                    clearTimeout(this.timer);
-                    this.timer = null;
-                }
-
-                // Esconder karaokê
-                if (this._karaokeEl) {
-                    this._karaokeEl.style.opacity = '0';
-                }
-
-                // Limpar destaques
-                this.acordesGrade.querySelectorAll('.bloco-acorde').forEach(b => {
-                    b.classList.remove('ativo');
-                    b.style.transform = '';
-                    b.style.boxShadow = '';
-                    b.style.zIndex = '';
+                if (this.cursorPlay) this.cursorPlay.style.display = 'none';
+                if (this.timer) { clearTimeout(this.timer); this.timer = null; }
+                if (this._karaokeEl) { this._karaokeEl.style.opacity = '0'; }
+                this.acordesGrade.querySelectorAll('.bloco-acorde').forEach(b => { 
+                    b.classList.remove('ativo'); 
+                    b.style.transform = ''; 
                 });
             }
 
             step() {
                 if (!this.tocando) return;
-
-                // Encontrar acordes no tempo atual
-                const acordesAgora = this.grade.filter(item =>
-                    item.tempo <= this.cursorPos &&
-                    item.tempo + item.duracao > this.cursorPos
+                
+                const acordesAgora = this.grade.filter(item => 
+                    item.tempo <= this.cursorPos && item.tempo + item.duracao > this.cursorPos
                 );
-
-                // Tocar acordes atuais
+                
                 acordesAgora.forEach(item => {
                     this.engine.tocarAcorde(item.acorde, 0.7, this.modo);
-
-                    // Destacar bloco na grade
+                    
                     const idx = this.grade.indexOf(item);
                     const bloco = this.acordesGrade.querySelector(`[data-index="${idx}"]`);
-                    if (bloco) {
-                        bloco.classList.add('ativo');
-                        bloco.style.transform = 'scale(1.08)';
-                        bloco.style.boxShadow = '0 0 20px var(--accent2)';
-                        bloco.style.zIndex = '5';
+                    if (bloco) { 
+                        bloco.classList.add('ativo'); 
+                        bloco.style.transform = 'scale(1.08)'; 
+                        bloco.style.zIndex = '5'; 
                     }
-
-                    // Mostrar acorde no karaokê
+                    
                     this.mostrarAcordeKaraoke(item.acorde);
-
-                    // Destacar notas no piano
+                    
                     const posicao = this.engine.acordes[item.acorde];
                     if (posicao) {
                         this.engine.cordas.forEach((corda, i) => {
@@ -1798,59 +1544,37 @@ E sentir o teu calor..."></textarea>
                         });
                     }
                 });
-
-                // Calcular tempo total da grade
-                const tempoTotal = this.grade.reduce((max, item) =>
-                    Math.max(max, item.tempo + item.duracao), 0
-                );
-
-                // Atualizar cursor
+                
+                const tempoTotal = this.grade.reduce((max, item) => Math.max(max, item.tempo + item.duracao), 0);
                 const PX_POR_BATIDA = 80;
-                this.cursorPlay.style.left = (this.cursorPos / 4) * PX_POR_BATIDA * 4 + 'px';
-
-                // Avançar cursor
+                if (this.cursorPlay) this.cursorPlay.style.left = (this.cursorPos / 4) * PX_POR_BATIDA * 4 + 'px';
+                
                 this.cursorPos += 0.5;
-
-                // Verificar fim
+                
                 if (this.cursorPos >= tempoTotal) {
-                    if (this.loop) {
-                        this.cursorPos = 0;
-                    } else {
-                        this.parar();
-                        return;
-                    }
+                    if (this.loop) { this.cursorPos = 0; }
+                    else { this.parar(); return; }
                 }
-
-                // Agendar próximo passo
-                const intervaloMs = (60 / this.bpm) * 500; // meia batida
+                
+                const intervaloMs = (60 / this.bpm) * 500;
                 this.timer = setTimeout(() => this.step(), intervaloMs);
             }
 
-            /**
-             * Mostra o acorde gigante no centro da tela (karaokê)
-             */
             mostrarAcordeKaraoke(acorde) {
                 if (!this._karaokeEl) return;
-
                 this._karaokeEl.textContent = acorde;
                 this._karaokeEl.style.opacity = '1';
-
                 clearTimeout(this._karaokeTimer);
-                this._karaokeTimer = setTimeout(() => {
-                    if (this._karaokeEl) {
-                        this._karaokeEl.style.opacity = '0';
-                    }
+                this._karaokeTimer = setTimeout(() => { 
+                    if (this._karaokeEl) this._karaokeEl.style.opacity = '0'; 
                 }, 700);
             }
 
-            /**
-             * Destaca uma tecla do piano
-             */
             highlightPianoKey(nota) {
                 const key = this.pianoKeys.querySelector(`[data-nota="${nota}"]`);
-                if (key) {
-                    key.classList.add('playing');
-                    setTimeout(() => key.classList.remove('playing'), 300);
+                if (key) { 
+                    key.classList.add('playing'); 
+                    setTimeout(() => key.classList.remove('playing'), 300); 
                 }
             }
 
@@ -1866,135 +1590,97 @@ E sentir o teu calor..."></textarea>
                     '🎪 Suspensos': ['Csus2', 'Dsus2', 'Esus2', 'Csus4', 'Dsus4', 'Esus4', 'Gsus4', 'Asus4'],
                     '💀 Diminutos': ['Cdim', 'Ddim', 'Edim', 'Fdim', 'Gdim', 'Adim', 'Bdim'],
                     '🎸 Nonas': ['C9', 'D9', 'G9', 'A9', 'Cadd9', 'Gadd9'],
-                    '🤠 Sertanejos': ['C_sertanejo', 'G_sertanejo', 'D_sertanejo', 'A_sertanejo']
+                    '🤠 Sertanejos': ['C_sertanejo', 'G_sertanejo', 'D_sertanejo', 'A_sertanejo',
+            'E_sertanejo', 'F_sertanejo', 'B_sertanejo', 'Am_sertanejo','G/B_sertanejo']
                 };
-
+                
                 this.categoriasContainer.innerHTML = '';
-
+                
                 Object.entries(categorias).forEach(([nomeCategoria, acordes]) => {
-                    // Título da categoria
                     const catNome = document.createElement('div');
                     catNome.className = 'cat-nome aberto';
                     catNome.textContent = nomeCategoria;
-                    catNome.addEventListener('click', () => {
-                        catNome.classList.toggle('aberto');
-                    });
-
-                    // Grid de acordes
+                    catNome.addEventListener('click', () => { catNome.classList.toggle('aberto'); });
+                    
                     const grid = document.createElement('div');
                     grid.className = 'cat-grid';
-
+                    
                     acordes.forEach(acorde => {
                         const chip = document.createElement('div');
                         chip.className = 'acorde-chip';
                         chip.textContent = acorde;
-                        chip.title = `Clique: selecionar | Duplo-clique: adicionar à grade`;
-
+                        chip.title = 'Clique: selecionar | Duplo-clique: adicionar à grade';
                         chip.addEventListener('click', () => this.selecionarAcorde(acorde));
                         chip.addEventListener('dblclick', () => this.addAcordeNaGrade(acorde));
-
                         grid.appendChild(chip);
                     });
-
+                    
                     this.categoriasContainer.appendChild(catNome);
                     this.categoriasContainer.appendChild(grid);
                 });
             }
 
-            /**
-             * Seleciona um acorde (atualiza mini-braço e destaques)
-             */
             selecionarAcorde(acorde) {
                 this.acordeSel = acorde;
-
-                // Atualizar chips
+                
                 document.querySelectorAll('.acorde-chip.selecionado').forEach(c => c.classList.remove('selecionado'));
                 document.querySelectorAll('.acorde-chip.sugestao').forEach(c => c.classList.remove('sugestao'));
-
-                this.categoriasContainer.querySelectorAll('.acorde-chip').forEach(chip => {
-                    if (chip.textContent === acorde) {
-                        chip.classList.add('selecionado');
-                    }
+                
+                this.categoriasContainer.querySelectorAll('.acorde-chip').forEach(chip => { 
+                    if (chip.textContent === acorde) chip.classList.add('selecionado'); 
                 });
-
-                // Atualizar mini-braço
+                
                 const posicao = this.engine.acordes[acorde];
-                if (posicao) {
-                    this.miniBraco.desenhar(acorde, posicao);
-                    this.bracoFloat.classList.add('visivel');
-                } else {
-                    this.bracoFloat.classList.remove('visivel');
+                if (posicao) { 
+                    this.miniBraco.desenhar(acorde, posicao); 
+                    this.bracoFloat.classList.add('visivel'); 
+                } else { 
+                    this.bracoFloat.classList.remove('visivel'); 
                 }
-
+                
                 this.log(`🎸 Acorde selecionado: ${acorde}`, 'info');
             }
 
-            /**
-             * Sugere próximos acordes baseado em harmonia funcional
-             */
             sugerirProximoAcorde() {
-                if (!this.acordeSel) {
-                    this.log('⚠️ Selecione um acorde primeiro!', 'warn');
-                    return;
+                if (!this.acordeSel) { 
+                    this.log('⚠️ Selecione um acorde primeiro!', 'warn'); 
+                    return; 
                 }
-
+                
                 const sugestoes = {
-                    'C': ['G', 'Am', 'F', 'Dm', 'Em'],
-                    'G': ['C', 'D', 'Em', 'Am', 'Bm'],
-                    'D': ['G', 'A', 'Bm', 'Em', 'F#m'],
-                    'A': ['D', 'E', 'F#m', 'Bm', 'C#m'],
-                    'E': ['A', 'B', 'C#m', 'F#m', 'G#m'],
-                    'F': ['C', 'Bb', 'Dm', 'Gm', 'Am'],
-                    'Am': ['Dm', 'G', 'F', 'E7', 'C'],
-                    'Em': ['Am', 'D', 'C', 'B7', 'G'],
-                    'Dm': ['Gm', 'C', 'Bb', 'A7', 'F'],
-                    'C7': ['F', 'Gm', 'Am', 'Dm'],
-                    'G7': ['C', 'Dm', 'Em', 'Am'],
-                    'D7': ['G', 'Am', 'Bm', 'Em']
+                    'C': ['G', 'Am', 'F', 'Dm', 'Em'], 'G': ['C', 'D', 'Em', 'Am', 'Bm'], 'D': ['G', 'A', 'Bm', 'Em', 'F#m'],
+                    'A': ['D', 'E', 'F#m', 'Bm', 'C#m'], 'E': ['A', 'B', 'C#m', 'F#m', 'G#m'], 'F': ['C', 'Bb', 'Dm', 'Gm', 'Am'],
+                    'Am': ['Dm', 'G', 'F', 'E7', 'C'], 'Em': ['Am', 'D', 'C', 'B7', 'G'], 'Dm': ['Gm', 'C', 'Bb', 'A7', 'F'],
+                    'C7': ['F', 'Gm', 'Am', 'Dm'], 'G7': ['C', 'Dm', 'Em', 'Am'], 'D7': ['G', 'Am', 'Bm', 'Em']
                 };
-
+                
                 const sugs = sugestoes[this.acordeSel] || Object.keys(this.engine.acordes).slice(0, 6);
-
                 this.log(`💡 Sugestões para ${this.acordeSel}: ${sugs.join(', ')}`, 'info');
-
-                // Destacar sugestões
-                document.querySelectorAll('.acorde-chip').forEach(chip => {
-                    if (sugs.includes(chip.textContent)) {
-                        chip.classList.add('sugestao');
-                    }
+                
+                document.querySelectorAll('.acorde-chip').forEach(chip => { 
+                    if (sugs.includes(chip.textContent)) chip.classList.add('sugestao'); 
                 });
             }
 
-            /**
-             * Aplica um ritmo sertanejo característico ao acorde selecionado
-             */
             aplicarRitmoSertanejo() {
-                if (!this.acordeSel) {
-                    this.log('⚠️ Selecione um acorde primeiro!', 'warn');
-                    return;
+                if (!this.acordeSel) { 
+                    this.log('⚠️ Selecione um acorde primeiro!', 'warn'); 
+                    return; 
                 }
-
-                // Padrão rítmico sertanejo: | 1  .  2  . | 3  e  4  . |
+                
                 const ritmo = [
-                    { tempo: 0, duracao: 1.5 },
-                    { tempo: 2, duracao: 1.5 },
-                    { tempo: 4, duracao: 1 },
-                    { tempo: 5, duracao: 1 },
+                    { tempo: 0, duracao: 1.5 }, { tempo: 2, duracao: 1.5 }, 
+                    { tempo: 4, duracao: 1 }, { tempo: 5, duracao: 1 }, 
                     { tempo: 6, duracao: 1.5 }
                 ];
-
-                const inicio = this.grade.length > 0 ?
-                    this.grade[this.grade.length - 1].tempo + this.grade[this.grade.length - 1].duracao :
-                    0;
-
-                ritmo.forEach(r => {
-                    this.grade.push({
-                        acorde: this.acordeSel,
-                        tempo: inicio + r.tempo,
-                        duracao: r.duracao
-                    });
+                
+                const inicio = this.grade.length > 0 ? 
+                    this.grade[this.grade.length - 1].tempo + this.grade[this.grade.length - 1].duracao : 0;
+                
+                ritmo.forEach(r => { 
+                    this.grade.push({ acorde: this.acordeSel, tempo: inicio + r.tempo, duracao: r.duracao }); 
                 });
-
+                
                 this.renderGrade();
                 this.log(`🤠 Ritmo sertanejo aplicado com "${this.acordeSel}"!`, 'ok');
             }
@@ -2005,44 +1691,41 @@ E sentir o teu calor..."></textarea>
             buildEditor() {
                 this.cordasEditor.innerHTML = '';
                 const nomesCordas = ['E6 (6ª)', 'A5 (5ª)', 'D4 (4ª)', 'G3 (3ª)', 'B2 (2ª)', 'E1 (1ª)'];
-
+                
                 this.engine.cordas.forEach((corda, i) => {
                     const row = document.createElement('div');
                     row.className = 'corda-row';
-
+                    
                     const label = document.createElement('span');
                     label.className = 'corda-label';
                     label.textContent = nomesCordas[i];
-
+                    
                     const input = document.createElement('input');
                     input.type = 'number';
                     input.min = -1;
                     input.max = 12;
                     input.value = 0;
                     input.dataset.idx = i;
-
+                    
                     const preview = document.createElement('span');
                     preview.className = 'nota-preview';
                     preview.textContent = this.engine.cordaNotas[corda][0];
-
+                    
                     input.addEventListener('input', () => {
                         let v = parseInt(input.value);
                         if (isNaN(v)) v = -1;
                         if (v > 12) v = 12;
                         if (v < -1) v = -1;
                         input.value = v;
-                        preview.textContent = v >= 0 ?
-                            this.engine.cordaNotas[corda][Math.min(v, 12)] :
-                            '🔇';
+                        preview.textContent = v >= 0 ? this.engine.cordaNotas[corda][Math.min(v, 12)] : '🔇';
                     });
-
+                    
                     row.appendChild(label);
                     row.appendChild(input);
                     row.appendChild(preview);
                     this.cordasEditor.appendChild(row);
                 });
-
-                // Botão Testar
+                
                 document.getElementById('btnTestarCustom').addEventListener('click', () => {
                     const pos = this.getCustomPos();
                     const nomeTemp = '__t_' + Date.now();
@@ -2051,30 +1734,29 @@ E sentir o teu calor..."></textarea>
                     setTimeout(() => delete this.engine.acordes[nomeTemp], 3000);
                     this.log('🎸 Testando acorde personalizado...', 'info');
                 });
-
-                // Botão Salvar
+                
                 document.getElementById('btnSalvarCustom').addEventListener('click', () => this.saveCustom());
             }
 
-            getCustomPos() {
-                const inputs = this.cordasEditor.querySelectorAll('input');
-                return Array.from(inputs).map(inp => parseInt(inp.value));
+            getCustomPos() { 
+                const inputs = this.cordasEditor.querySelectorAll('input'); 
+                return Array.from(inputs).map(inp => parseInt(inp.value)); 
             }
 
             saveCustom() {
                 const nome = document.getElementById('inputNomeCustom').value.trim();
-                if (!nome) {
-                    this.log('⚠️ Dê um nome ao acorde!', 'warn');
-                    return;
+                if (!nome) { 
+                    this.log('⚠️ Dê um nome ao acorde!', 'warn'); 
+                    return; 
                 }
-
+                
                 const pos = this.getCustomPos();
                 const temNota = pos.some(t => t >= 0);
-                if (!temNota) {
-                    this.log('⚠️ Selecione pelo menos uma corda!', 'warn');
-                    return;
+                if (!temNota) { 
+                    this.log('⚠️ Selecione pelo menos uma corda!', 'warn'); 
+                    return; 
                 }
-
+                
                 this.customAcordes[nome] = pos;
                 this.engine.acordes[nome] = pos;
                 localStorage.setItem('violao_custom_acordes', JSON.stringify(this.customAcordes));
@@ -2087,62 +1769,55 @@ E sentir o teu calor..."></textarea>
                     const dados = localStorage.getItem('violao_custom_acordes');
                     if (dados) {
                         this.customAcordes = JSON.parse(dados);
-                        Object.entries(this.customAcordes).forEach(([nome, pos]) => {
-                            this.engine.acordes[nome] = pos;
+                        Object.entries(this.customAcordes).forEach(([nome, pos]) => { 
+                            this.engine.acordes[nome] = pos; 
                         });
                     }
-                } catch (e) {
-                    this.customAcordes = {};
+                } catch(e) { 
+                    this.customAcordes = {}; 
                 }
                 this.renderTags();
             }
 
             renderTags() {
                 const nomes = Object.keys(this.customAcordes);
-                if (nomes.length === 0) {
-                    this.tagsCustom.innerHTML =
-                        '<span style="font-size:10px;color:var(--text2);">Nenhum acorde salvo ainda</span>';
-                    return;
+                if (nomes.length === 0) { 
+                    this.tagsCustom.innerHTML = '<span style="font-size:10px;color:var(--text2);">Nenhum acorde salvo ainda</span>'; 
+                    return; 
                 }
-
-                this.tagsCustom.innerHTML = nomes.map(nome => `
-                    <span class="acorde-chip custom" 
-                          onclick="window.app.selecionarAcorde('${nome}')"
-                          title="Acorde personalizado: ${nome}">
-                        ${nome}
-                    </span>
-                `).join('');
+                
+                this.tagsCustom.innerHTML = nomes.map(nome => 
+                    `<span class="acorde-chip custom" onclick="window.app.selecionarAcorde('${nome}')" title="Acorde personalizado: ${nome}">${nome}</span>`
+                ).join('');
             }
 
             // ============================================================
             // EXPORTAÇÃO
             // ============================================================
             exportarCifra() {
-                if (!this.grade.length) {
-                    this.log('⚠️ Grade vazia! Adicione acordes primeiro.', 'warn');
-                    return;
+                if (!this.grade.length) { 
+                    this.log('⚠️ Grade vazia! Adicione acordes primeiro.', 'warn'); 
+                    return; 
                 }
-
+                
                 let txt = `🎸 Violão Compositor Sertanejo Pro\n`;
                 txt += `Data: ${new Date().toLocaleDateString('pt-BR')}\n`;
                 txt += `BPM: ${this.bpm} | Compasso: ${this.compasso}/4\n`;
                 txt += `Modo: ${this.modo}\n`;
                 txt += '='.repeat(50) + '\n\n';
-
-                // Agrupar por compasso
+                
                 const porCompasso = [];
-                for (let i = 0; i < this.grade.length; i += this.compasso) {
-                    porCompasso.push(this.grade.slice(i, i + this.compasso));
+                for (let i = 0; i < this.grade.length; i += this.compasso) { 
+                    porCompasso.push(this.grade.slice(i, i + this.compasso)); 
                 }
-
-                porCompasso.forEach(comp => {
-                    txt += '| ' + comp.map(c => c.acorde.padEnd(8)).join('| ') + '|\n';
+                
+                porCompasso.forEach(comp => { 
+                    txt += '| ' + comp.map(c => c.acorde.padEnd(8)).join('| ') + '|\n'; 
                 });
-
+                
                 txt += '\n' + '='.repeat(50) + '\n';
                 txt += `Total: ${this.grade.length} acordes em ${porCompasso.length} compassos\n`;
-
-                // Download automático
+                
                 const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
@@ -2150,25 +1825,23 @@ E sentir o teu calor..."></textarea>
                 a.download = `cifra_${Date.now()}.txt`;
                 a.click();
                 URL.revokeObjectURL(url);
-
-                // Mostrar no modal
+                
                 this.cifraConteudo.textContent = txt;
                 this.modalExport.classList.remove('hidden');
                 this.log('📝 Cifra exportada e download iniciado!', 'ok');
             }
 
             copiarProgressao() {
-                if (!this.grade.length) {
-                    this.log('⚠️ Grade vazia!', 'warn');
-                    return;
+                if (!this.grade.length) { 
+                    this.log('⚠️ Grade vazia!', 'warn'); 
+                    return; 
                 }
-
+                
                 const texto = this.grade.map(item => item.acorde).join(' ');
-
-                navigator.clipboard.writeText(texto).then(() => {
-                    this.log('📋 Progressão copiada para a área de transferência!', 'ok');
+                
+                navigator.clipboard.writeText(texto).then(() => { 
+                    this.log('📋 Progressão copiada para a área de transferência!', 'ok'); 
                 }).catch(() => {
-                    // Fallback para navegadores antigos
                     const textarea = document.createElement('textarea');
                     textarea.value = texto;
                     document.body.appendChild(textarea);
@@ -2182,13 +1855,13 @@ E sentir o teu calor..."></textarea>
             salvarProjeto() {
                 const nome = prompt('Nome do projeto:');
                 if (!nome) return;
-
+                
                 const projetos = JSON.parse(localStorage.getItem('violao_projetos') || '{}');
-                projetos[nome] = {
-                    grade: this.grade,
-                    bpm: this.bpm,
-                    compasso: this.compasso,
-                    modo: this.modo
+                projetos[nome] = { 
+                    grade: this.grade, 
+                    bpm: this.bpm, 
+                    compasso: this.compasso, 
+                    modo: this.modo 
                 };
                 localStorage.setItem('violao_projetos', JSON.stringify(projetos));
                 this.log(`💾 Projeto "${nome}" salvo com sucesso!`, 'ok');
@@ -2197,45 +1870,41 @@ E sentir o teu calor..."></textarea>
             carregarProjeto() {
                 const projetos = JSON.parse(localStorage.getItem('violao_projetos') || '{}');
                 const nomes = Object.keys(projetos);
-
-                if (!nomes.length) {
-                    this.log('⚠️ Nenhum projeto salvo encontrado.', 'warn');
-                    return;
+                
+                if (!nomes.length) { 
+                    this.log('⚠️ Nenhum projeto salvo encontrado.', 'warn'); 
+                    return; 
                 }
-
-                const lista = nomes.map((n, i) => `${i + 1}. ${n}`).join('\n');
+                
+                const lista = nomes.map((n, i) => `${i+1}. ${n}`).join('\n');
                 const nome = prompt('Projetos salvos:\n\n' + lista + '\n\nDigite o nome do projeto:');
-
+                
                 if (!nome || !projetos[nome]) return;
-
+                
                 const p = projetos[nome];
                 this.grade = p.grade;
                 this.bpm = p.bpm || 90;
                 this.compasso = p.compasso || 4;
                 this.modo = p.modo || 'batida_sertanejo';
-
+                
                 document.getElementById('bpmInput').value = this.bpm;
                 document.getElementById('compassoSelect').value = this.compasso;
                 document.getElementById('modoSelect').value = this.modo;
-
+                
                 this.renderGrade();
                 this.log(`📂 Projeto "${nome}" carregado! (${this.grade.length} acordes)`, 'ok');
             }
 
-            // ============================================================
-            // UTILITÁRIOS
-            // ============================================================
             previewNota(nota) {
                 if (!this.engine.estaPronto()) return;
-
                 this.engine.resumeContext();
-
+                
                 for (const [corda, notas] of Object.entries(this.engine.cordaNotas)) {
                     const idx = notas.indexOf(nota);
-                    if (idx >= 0) {
-                        this.engine.tocarCorda(corda, idx, 0.6, this.engine.ctx.currentTime, 1.2);
-                        this.highlightPianoKey(nota);
-                        break;
+                    if (idx >= 0) { 
+                        this.engine.tocarCorda(corda, idx, 0.6, this.engine.ctx.currentTime, 1.2); 
+                        this.highlightPianoKey(nota); 
+                        break; 
                     }
                 }
             }
@@ -2245,34 +1914,85 @@ E sentir o teu calor..."></textarea>
                 const entry = document.createElement('span');
                 entry.className = tipo;
                 entry.textContent = `[${time}] ${msg}`;
-
                 this.consoleEl.appendChild(document.createTextNode('\n'));
                 this.consoleEl.appendChild(entry);
                 this.consoleEl.scrollTop = this.consoleEl.scrollHeight;
-
-                // Limitar linhas do console
+                
                 const linhas = this.consoleEl.querySelectorAll('span');
-                if (linhas.length > 100) {
-                    linhas[0].remove();
-                }
+                if (linhas.length > 100) linhas[0].remove();
+            }
+
+            initEventos() {
+                document.getElementById('btnPlay').addEventListener('click', () => this.togglePlay());
+                document.getElementById('btnStop').addEventListener('click', () => this.parar());
+                document.getElementById('btnLoop').addEventListener('click', function() {
+                    this.classList.toggle('ativo');
+                    window.app.loop = this.classList.contains('ativo');
+                });
+                document.getElementById('bpmInput').addEventListener('change', e => { this.bpm = parseInt(e.target.value) || 90; });
+                document.getElementById('compassoSelect').addEventListener('change', e => { this.compasso = parseInt(e.target.value); });
+                document.getElementById('modoSelect').addEventListener('change', e => { this.modo = e.target.value; });
+                document.getElementById('btnExportar').addEventListener('click', () => this.exportarCifra());
+                document.getElementById('btnCopiar').addEventListener('click', () => this.copiarProgressao());
+                document.getElementById('btnSalvarProjeto').addEventListener('click', () => this.salvarProjeto());
+                document.getElementById('btnCarregarProjeto').addEventListener('click', () => this.carregarProjeto());
+                document.getElementById('btnUpload').addEventListener('click', () => { this.modalUpload.classList.remove('hidden'); });
+                document.getElementById('btnSelecionarPastas').addEventListener('click', () => { this.folderInput.click(); });
+                document.getElementById('btnFecharUpload').addEventListener('click', () => { this.modalUpload.classList.add('hidden'); });
+                document.getElementById('btnFecharExport').addEventListener('click', () => { this.modalExport.classList.add('hidden'); });
+                this.folderInput.addEventListener('change', e => this.processUpload(e));
+                document.getElementById('btnLimpar').addEventListener('click', () => { this.grade = []; this.renderGrade(); this.log('🧹 Grade limpa!', 'info'); });
+                document.getElementById('btnSugerir').addEventListener('click', () => this.sugerirProximoAcorde());
+                document.getElementById('btnRitmoSertanejo').addEventListener('click', () => this.aplicarRitmoSertanejo());
+                document.getElementById('btnParseCifra').addEventListener('click', () => { this.parseCifraClub(this.inputCifra.value); });
+                
+                this.modalUpload.addEventListener('click', e => { if (e.target === this.modalUpload) this.modalUpload.classList.add('hidden'); });
+                this.modalExport.addEventListener('click', e => { if (e.target === this.modalExport) this.modalExport.classList.add('hidden'); });
+                
+                document.addEventListener('keydown', e => {
+                    if (e.key === 'Escape') { this.modalUpload.classList.add('hidden'); this.modalExport.classList.add('hidden'); return; }
+                    if (e.target.tagName === 'INPUT' && e.target.type !== 'range') return;
+                    if (e.target.tagName === 'TEXTAREA') return;
+                    if (e.key === ' ' && !e.ctrlKey) { e.preventDefault(); this.togglePlay(); return; }
+                    if (e.key === 'Delete' && !e.ctrlKey) { this.grade = []; this.renderGrade(); this.log('🧹 Grade limpa! (Delete)', 'info'); return; }
+                    if (e.ctrlKey && e.key === 'z') { e.preventDefault(); this.grade.pop(); this.renderGrade(); this.log('↩ Último acorde removido (Ctrl+Z)', 'info'); return; }
+                    
+                    const teclasRapidas = { '1': 'C', '2': 'G', '3': 'D', '4': 'A', '5': 'E', '6': 'F', 'q': 'Am', 'w': 'Em', 'e': 'Dm', 'r': 'Cm', 't': 'G7' };
+                    if (teclasRapidas[e.key] && !e.ctrlKey && !e.metaKey) {
+                        this.selecionarAcorde(teclasRapidas[e.key]);
+                        this.addAcordeNaGrade(teclasRapidas[e.key]);
+                    }
+                });
+                
+                document.addEventListener('paste', (e) => {
+                    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+                    const texto = e.clipboardData.getData('text');
+                    if (texto && texto.length > 5 && texto.includes('\n')) {
+                        this.inputCifra.value = texto;
+                        this.log('📋 Cifra colada! Clique em "Converter para Grade" para ouvir.', 'cifraclub');
+                    }
+                });
             }
         }
 
         // ============================================================
-        // INICIALIZAÇÃO DO APLICATIVO
+        // INICIALIZAÇÃO
         // ============================================================
         document.addEventListener('DOMContentLoaded', () => {
             window.app = new CompositorApp();
-
+            
             window.app.log('🎸 Violão Compositor Sertanejo Pro v2.3.0', 'ok');
             window.app.log('─'.repeat(40), 'info');
-            window.app.log('🆕 NOVO: Modo CifraClub - Cole cifras e ouça!', 'cifraclub');
-            window.app.log('🆕 NOVO: Karaokê - Acorde gigante na tela!', 'ok');
-            window.app.log('🆕 NOVO: Mini-Braço CifraClub integrado', 'ok');
+            window.app.log('🆕 Carregamento automático do GitHub ativado!', 'ok');
+            window.app.log('🆕 Detecção automática de branch (main/master)', 'ok');
+            window.app.log('🆕 Round-robin para múltiplos takes de samples', 'ok');
             window.app.log('─'.repeat(40), 'info');
-            window.app.log('📂 Para começar: Clique em "📁 Carregar Samples"', 'info');
-            window.app.log('📝 Ou cole uma cifra no campo "Modo CifraClub"', 'cifraclub');
+            
+            // Inicia carregamento automático
+            window.app.iniciarComGitHub();
+            
             window.app.log('⌨️ Atalhos: Espaço=Play | 1-6=Acordes | Delete=Limpar | Ctrl+Z=Desfazer', 'info');
+            window.app.log('📝 Modo CifraClub: Cole cifras e clique "Converter"', 'cifraclub');
             window.app.log('─'.repeat(40), 'info');
         });
     </script>
