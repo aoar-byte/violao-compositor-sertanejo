@@ -1403,9 +1403,10 @@ buildPiano() {
         this.pianoKeys.appendChild(key);
     });
     
-    // ✅ SALVAR REFERÊNCIA ANTES DE DESTRUIR
-    const cursorExistente = this.cursorPlay || document.getElementById('cursorPlay');
+    // Salva o cursor ANTES de destruir o conteúdo
+    const cursorSalvo = this.cursorPlay && this.cursorPlay.nodeType === 1 ? this.cursorPlay : null;
     
+    // Recria as linhas da grade
     this.acordesGrade.innerHTML = '';
     this.notasViolao.forEach(nota => {
         const linha = document.createElement('div');
@@ -1414,9 +1415,9 @@ buildPiano() {
         this.acordesGrade.appendChild(linha);
     });
     
-    // ✅ RECRIAR OU REANEXAR O CURSOR
-    if (cursorExistente) {
-        this.cursorPlay = cursorExistente;
+    // Restaura ou recria o cursor
+    if (cursorSalvo) {
+        this.cursorPlay = cursorSalvo;
         this.acordesGrade.appendChild(this.cursorPlay);
     } else {
         this.cursorPlay = document.createElement('div');
