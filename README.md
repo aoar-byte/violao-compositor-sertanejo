@@ -1,6 +1,6 @@
 # 🎸 Violão Compositor Sertanejo Pro v2.3.0
 
-**Ferramenta de auxílio para composição musical com violão digital — para músicos, cantores, compositores e iniciantes.**
+**Ferramenta em desenvolvimento de auxílio para composição musical com violão digital — para músicos, cantores, compositores e iniciantes.**
 
 [![Versão](https://img.shields.io/badge/versão-2.3.0-blue)](https://github.com/seu-usuario/violao-compositor)
 [![Licença](https://img.shields.io/badge/licença-MIT-green)](LICENSE)
